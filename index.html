@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Si Jari Pintar - Belajar Berhitung & Aljabar</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffc43d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Jari Pintar">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--langit:#dff3ff;--tinta:#1d2b64;--kuning:#ffc43d;--pink:#ff5d8f;--mint:#2ec4a6;--ungu:#6c5ce7;--kulit:#ffcf9f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;background:linear-gradient(#bfe6ff,#fff3d6);color:var(--tinta);min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+#app{max-width:640px;margin:0 auto;padding:12px 14px 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+header b{font-size:1.4rem;font-weight:800}
+header button,.ghost{background:#fff;border:3px solid var(--tinta);border-radius:16px;font:700 1rem inherit;font-family:inherit;padding:6px 12px;color:var(--tinta);cursor:pointer}
+.card{background:#fff;border:3px solid var(--tinta);border-radius:28px;padding:16px;box-shadow:0 6px 0 var(--tinta);margin-bottom:16px}
+h2{margin:6px 0 10px;font-size:1.9rem;line-height:1.2;text-align:center}
+.sm{margin:0;text-align:center;font-size:.95rem;opacity:.75}
+.btn{display:block;width:100%;background:var(--kuning);border:3px solid var(--tinta);border-radius:20px;font:800 1.25rem inherit;font-family:inherit;padding:12px;color:var(--tinta);box-shadow:0 5px 0 var(--tinta);cursor:pointer;margin:12px 0}
+.btn:active,.opt:active{transform:translateY(4px);box-shadow:0 1px 0 var(--tinta)}
+.stats{display:flex;gap:8px;justify-content:space-between}
+.stats div{flex:1;background:var(--langit);border-radius:18px;text-align:center;padding:6px;font-weight:700}
+.stats span{display:block;font-size:1.4rem}
+.xpbar,.prog{height:14px;background:#e4e9f7;border-radius:9px;overflow:hidden;border:2px solid var(--tinta);margin:10px 0}
+.xpbar i,.prog i{display:block;height:100%;background:var(--mint);transition:width .5s}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.menu button{border:3px solid var(--tinta);border-radius:24px;padding:14px 8px;font:800 1.1rem inherit;font-family:inherit;color:var(--tinta);box-shadow:0 5px 0 var(--tinta);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+.menu button em{font-size:2.4rem;font-style:normal}
+.menu small{font-weight:500;font-size:.8rem}
+.menu .wide{grid-column:span 2}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.opt{font:800 2rem inherit;font-family:inherit;border:3px solid var(--tinta);border-radius:22px;padding:12px;background:var(--langit);box-shadow:0 5px 0 var(--tinta);color:var(--tinta);cursor:pointer}
+.opt.ok{background:var(--mint)}.opt.no{background:var(--pink)}
+.row{display:flex;gap:10px;justify-content:center}
+#fb{min-height:40px;text-align:center;font-weight:800;font-size:1.2rem;margin-top:8px}
+.vis{text-align:center;font-size:1.6rem;word-break:break-all}
+.hands{display:flex;justify-content:center;gap:26px;margin:14px 0 4px;align-items:flex-end;height:120px}
+.hand{display:flex;gap:6px;align-items:flex-end;padding:8px 10px 0;background:var(--kulit);border:3px solid var(--tinta);border-radius:28px 28px 14px 14px}
+.f{width:24px;height:34px;background:#ffb877;border:3px solid var(--tinta);border-radius:14px 14px 6px 6px;transition:height .25s cubic-bezier(.3,1.6,.5,1);cursor:pointer;margin-bottom:-2px}
+.f.up{height:84px;background:var(--kulit)}
+.av{font-size:2.2rem;background:#fff;border:3px solid var(--tinta);border-radius:50%;width:60px;height:60px;cursor:pointer}
+.av.sel{background:var(--kuning)}
+input{width:100%;font:700 1.4rem inherit;font-family:inherit;padding:10px 14px;border:3px solid var(--tinta);border-radius:18px;text-align:center}
+.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.bd{background:var(--langit);border-radius:16px;padding:6px 10px;font-weight:700;font-size:.9rem;text-align:center;width:46%}
+.bd.off{opacity:.35;filter:grayscale(1)}
+.arena{position:relative;height:440px;overflow:hidden;border:3px solid var(--tinta);border-radius:24px;background:linear-gradient(#8fd3ff,#e9f8ff)}
+.b{position:absolute;bottom:-90px;width:68px;height:84px;border-radius:50% 50% 48% 48%;display:grid;place-items:center;font:800 1.7rem inherit;font-family:inherit;color:#fff;cursor:pointer;border:3px solid var(--tinta);animation:naik linear forwards}
+@keyframes naik{to{transform:translateY(-560px)}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kartu{height:84px;border:3px solid var(--tinta);border-radius:18px;background:var(--ungu);color:#fff;font:800 1.5rem inherit;font-family:inherit;cursor:pointer;box-shadow:0 4px 0 var(--tinta)}
+.kartu.buka{background:#fff;color:var(--tinta)}.kartu.cocok{background:var(--mint);color:var(--tinta)}
+.hud{display:flex;justify-content:space-between;font-weight:800;font-size:1.2rem;margin-bottom:6px}
+.lb{width:100%;border-collapse:collapse;font-weight:700}.lb td{padding:6px;border-bottom:2px dashed #cdd6f0}
+.pop{position:fixed;top:-40px;font-size:2rem;pointer-events:none;animation:jatuh 1.6s ease-in forwards;z-index:9}
+@keyframes jatuh{to{transform:translateY(110vh) rotate(360deg)}}
+.maskot{font-size:3.4rem;text-align:center;animation:goyang 2.4s ease-in-out infinite}
+@keyframes goyang{50%{transform:rotate(-6deg) scale(1.05)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+button:focus-visible,input:focus-visible{outline:4px solid var(--ungu);outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ===== KONFIGURASI: tempel URL Web App Google Apps Script di sini ===== */
+const CONFIG={SHEET_URL:""};
+
+const $=s=>document.querySelector(s),rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,app=$('#app');
+const acak=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+let S=null;try{S=JSON.parse(localStorage.getItem('sjp')||'null')}catch(e){}
+const simpan=()=>{try{localStorage.setItem('sjp',JSON.stringify(S))}catch(e){}};
+const view=h=>{app.innerHTML=h;window.scrollTo(0,0)};
+const fase=()=>['Fase A (Kelas 1-2)','Fase B (Kelas 3-4)','Fase C (Kelas 5-6)'][Math.min(S.lv,3)-1];
+
+/* ===== SUARA ===== */
+let AC,suaraId;
+function sfx(t){try{AC=AC||new AudioContext();const n=t==='ok'?[660,880,1100]:t==='no'?[300,220]:[520,720];n.forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+i*.12;o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.2,s);g.gain.exponentialRampToValueAtTime(.001,s+.2);o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+.2)})}catch(e){}}
+const lisan=t=>t.replace(/\+/g,' tambah ').replace(/[−-]/g,' kurang ').replace(/×/g,' kali ').replace(/=/g,' sama dengan ').replace(/🎁/g,' kotak misteri ').replace(/\?/g,'').replace(/[🍎]/g,'');
+function say(t){if(!S||S.suara===false||!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='id-ID';suaraId=suaraId||speechSynthesis.getVoices().find(v=>v.lang.replace('_','-').toLowerCase().startsWith('id'));if(suaraId)u.voice=suaraId;u.rate=.9;u.pitch=1.25;speechSynthesis.speak(u)}catch(e){}}
+if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>{suaraId=null};
+const PUJI=['Hebat sekali!','Pintar!','Keren, kamu benar!','Mantap, teruskan!','Wah, tepat sekali!','Luar biasa!'];
+const SEMANGAT=['Hampir benar, ayo semangat!','Tidak apa-apa, kita coba lagi ya!','Yuk, belajar dari kesalahan!'];
+function hujan(e='⭐'){for(let i=0;i<14;i++){const d=document.createElement('div');d.className='pop';d.textContent=e;d.style.left=rnd(2,92)+'vw';d.style.animationDelay=(i*.08)+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}}
+function toggleSuara(){S.suara=S.suara===false;simpan();if(S.suara)say('Suara dinyalakan');home()}
+
+/* ===== DATA PEMAIN & GOOGLE SHEETS ===== */
+const LENCANA={pemula:['🌱','Pemula','Selesai 1 latihan'],jari:['🖐️','Jari Ajaib','10 benar Hitung Jari'],aljabar:['🕵️','Detektif Aljabar','8 benar Aljabar'],balon:['🎈','Raja Balon','Skor balon 100+'],rajin:['🔥','Rajin Belajar','3 hari berturut']};
+function sync(aksi,x={}){if(!CONFIG.SHEET_URL||!S)return;try{fetch(CONFIG.SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({aksi,id:S.id,nama:S.nama,avatar:S.av,xp:S.xp,bintang:S.bin,streak:S.streak,fase:fase(),...x})}).catch(()=>{})}catch(e){}}
+function hariIni(){const t=new Date().toISOString().slice(0,10);if(S.last!==t){const k=new Date(Date.now()-864e5).toISOString().slice(0,10);S.streak=S.last===k?S.streak+1:1;S.last=t;if(S.streak>=3)beri('rajin');simpan()}}
+function beri(k){if(!S.len.includes(k)){S.len.push(k);setTimeout(()=>{hujan('🏅');say('Kamu mendapat lencana '+LENCANA[k][1])},600)}}
+
+/* ===== PWA: pasang ke layar utama ===== */
+let tawaranPasang=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();tawaranPasang=e;if(S&&$('.menu'))home()});
+window.addEventListener('appinstalled',()=>{tawaranPasang=null;say('Aplikasi berhasil dipasang!');if(S)home()});
+async function pasang(){if(!tawaranPasang)return;tawaranPasang.prompt();await tawaranPasang.userChoice;tawaranPasang=null;home()}
+if('serviceWorker' in navigator&&location.protocol!=='file:')window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+
+/* ===== BERANDA ===== */
+function masuk(){let av='🦉';view(`<div class="card"><div class="maskot">🦉</div><h2>Halo! Aku Si Jari Pintar</h2><p class="sm">Siapa namamu?</p><br><input id="nm" maxlength="14" placeholder="Tulis namamu" autocomplete="off"><p class="sm" style="margin-top:12px">Pilih temanmu</p><div class="row" style="flex-wrap:wrap;margin-top:8px">${['🦉','🐯','🐼','🦊','🐸','🦄'].map(a=>`<button class="av${a===av?' sel':''}" onclick="pilihAv('${a}',this)">${a}</button>`).join('')}</div><button class="btn" onclick="mulai()">Ayo Mulai! 🚀</button></div>`);window._av=av;setTimeout(()=>say('Halo! Aku Si Jari Pintar. Siapa namamu?'),300)}
+function pilihAv(a,el){window._av=a;document.querySelectorAll('.av').forEach(x=>x.classList.remove('sel'));el.classList.add('sel')}
+function mulai(){const n=($('#nm').value||'').trim()||'Teman Pintar';S={id:'p'+Date.now().toString(36)+rnd(100,999),nama:n,av:window._av||'🦉',xp:0,bin:0,streak:0,last:'',lv:1,len:[],cnt:{jari:0,aljabar:0},suara:true};hariIni();simpan();sync('masuk');say('Halo '+n+'! Mari kita belajar sambil bermain.');home()}
+function home(){hariIni();const lvl=Math.floor(S.xp/100)+1;view(`<header><button onclick="ganti()">${S.av}</button><b>Si Jari Pintar</b><button onclick="toggleSuara()">${S.suara===false?'🔇':'🔊'}</button></header>
+<div class="card"><h2 style="font-size:1.5rem">Hai, ${S.nama}! 👋</h2><div class="stats"><div><span>⭐ ${S.bin}</span>Bintang</div><div><span>🔥 ${S.streak}</span>Hari</div><div><span>🏆 ${lvl}</span>Tingkat</div></div><div class="xpbar"><i style="width:${S.xp%100}%"></i></div><p class="sm">${S.xp%100}/100 poin menuju tingkat ${lvl+1} · ${fase()}</p></div>
+<div class="menu">
+<button style="background:#ffe08a" onclick="kuis('jari')"><em>🖐️</em>Hitung Jari<small>Tunjuk & hitung</small></button>
+<button style="background:#a6f0dc" onclick="kuis('tambah')"><em>➕</em>Tambah Kurang<small>Dengan gambar</small></button>
+<button style="background:#d5cffc" class="wide" onclick="kuis('aljabar')"><em>🎁</em>Aljabar Kotak Misteri<small>Temukan angka yang bersembunyi</small></button>
+<button style="background:#ffc2d6" onclick="balon()"><em>🎈</em>Pecah Balon<small>Game seru</small></button>
+<button style="background:#bfe6ff" onclick="pasangan()"><em>🃏</em>Kartu Pasangan<small>Game ingatan</small></button>
+<button style="background:#fff" onclick="peringkat()"><em>🏆</em>Peringkat<small>Dari Google Sheets</small></button>
+<button style="background:#fff" onclick="lencana()"><em>🏅</em>Lencana<small>${S.len.length}/5 terkumpul</small></button>${tawaranPasang?'<button style="background:var(--kuning)" class="wide" onclick="pasang()"><em>📲</em>Pasang di layar utama<small>Main tanpa buka browser</small></button>':''}</div>`)}
+function ganti(){if(confirm('Ganti pemain? Data di perangkat ini akan dihapus.')){localStorage.removeItem('sjp');S=null;masuk()}}
+function lencana(){view(`<header><button onclick="home()">🏠</button><b>Lencanaku</b><span></span></header><div class="card"><div class="badges">${Object.entries(LENCANA).map(([k,v])=>`<div class="bd ${S.len.includes(k)?'':'off'}"><div style="font-size:2rem">${v[0]}</div>${v[1]}<br><small>${v[2]}</small></div>`).join('')}</div></div>`)}
+async function peringkat(){view(`<header><button onclick="home()">🏠</button><b>Peringkat</b><span></span></header><div class="card" id="lb"><p class="sm">Memuat…</p></div>`);const el=$('#lb');if(!CONFIG.SHEET_URL){el.innerHTML='<p class="sm">Google Sheets belum terhubung. Isi CONFIG.SHEET_URL di index.html agar peringkat muncul.</p>';return}try{const r=await (await fetch(CONFIG.SHEET_URL+'?aksi=peringkat')).json();el.innerHTML=`<table class="lb">${r.map((p,i)=>`<tr><td>${['🥇','🥈','🥉'][i]||i+1}</td><td>${p.avatar||''} ${p.nama}</td><td style="text-align:right">${p.xp} poin</td></tr>`).join('')}</table>`}catch(e){el.innerHTML='<p class="sm">Peringkat belum bisa dimuat. Periksa koneksi internet dan URL Apps Script.</p>'}}
+
+/* ===== SOAL ===== */
+function tangan(n,inter){return `<div class="hands" id="tg">${[0,1].map(h=>`<div class="hand">${[0,1,2,3,4].map(i=>{const k=h*5+i;return `<b class="f${k<n?' up':''}" ${inter?`onclick="this.classList.toggle('up');sfx('tap')"`:''}></b>`}).join('')}</div>`).join('')}</div>`}
+function pilihan(a,maks){const s=new Set([a]);let g=0;while(s.size<4&&g++<60){const v=a+rnd(-4,4);if(v>=0&&v<=maks)s.add(v)}return acak([...s])}
+function genQ(mode,L){let q;
+if(mode==='jari'){const mx=L===1?5:10;if(L===3){const a=rnd(1,6),b=rnd(1,10-a);q={tipe:'tunjuk',t:`Tunjukkan hasil ${a} + ${b} dengan jarimu!`,a:a+b,tip:`Mulai dari ${a} jari, lalu naikkan ${b} jari lagi.`}}
+else if(Math.random()<.55){const n=rnd(1,mx);q={tipe:'tunjuk',t:`Tunjukkan angka ${n} dengan jarimu!`,a:n,tip:`Naikkan jari satu per satu sampai ${n}.`}}
+else{const n=rnd(1,mx);q={tipe:'hitung',t:'Ada berapa jari yang terangkat?',n,a:n,o:pilihan(n,10),tip:'Hitung jari yang naik satu per satu.'}}}
+else if(mode==='tambah'){let a,b;
+if(L===1){a=rnd(1,9);b=rnd(1,10-a);q={t:`${a} + ${b} = ?`,a:a+b,vis:'🍎'.repeat(a)+' ➕ '+'🍎'.repeat(b),tip:'Hitung semua apel dari awal.'}}
+else if(L===2){if(Math.random()<.5){a=rnd(5,12);b=rnd(2,20-a);q={t:`${a} + ${b} = ?`,a:a+b,tip:`Mulai dari ${a}, lalu hitung maju ${b}.`}}else{a=rnd(8,20);b=rnd(1,a-1);q={t:`${a} − ${b} = ?`,a:a-b,tip:`Mulai dari ${a}, lalu hitung mundur ${b}.`}}}
+else{if(Math.random()<.5){a=rnd(2,9);b=rnd(2,9);q={t:`${a} × ${b} = ?`,a:a*b,tip:`${a} dikali ${b} artinya ${a} dijumlahkan ${b} kali.`}}else{a=rnd(20,60);b=rnd(10,39);q={t:`${a} + ${b} = ?`,a:a+b,tip:'Tambahkan puluhan dulu, lalu satuan.'}}}}
+else{let a,x;
+if(L===1){a=rnd(1,6);x=rnd(1,6);q={t:`🎁 + ${a} = ${a+x}`,a:x,tip:`Kotak misteri ditambah ${a} jadi ${a+x}. Jadi ${a+x} dikurangi ${a}.`}}
+else if(L===2){if(Math.random()<.5){a=rnd(2,9);x=rnd(2,10);q={t:`${a} + 🎁 = ${a+x}`,a:x,tip:`Kurangi ${a+x} dengan ${a}.`}}else{x=rnd(6,18);a=rnd(2,x-1);q={t:`🎁 − ${a} = ${x-a}`,a:x,tip:`Kebalikan dari kurang adalah tambah: ${x-a} + ${a}.`}}}
+else{if(Math.random()<.5){a=rnd(2,5);x=rnd(2,9);q={t:`${a} × 🎁 = ${a*x}`,a:x,tip:`Bagi ${a*x} dengan ${a}.`}}else{a=rnd(1,9);x=rnd(2,8);q={t:`2 × 🎁 + ${a} = ${2*x+a}`,a:x,tip:`Kurangi ${a} dulu, lalu bagi dua.`}}}}
+q.say=q.tipe?q.t:lisan(q.t)+(mode==='aljabar'?'. Berapa angka di dalam kotak?':'');q.o=q.o||pilihan(q.a,mode==='tambah'&&L===3?100:20);return q}
+
+/* ===== LATIHAN ===== */
+let Q=null,kunci=false;
+const cur=()=>Q.list[Q.i];
+function kuis(mode){const L=mode==='jari'?S.lv:S.lv;Q={mode,L,i:0,benar:0,t0:Date.now(),list:Array.from({length:10},()=>genQ(mode,L))};say('Ayo mulai!');soal()}
+function soal(){kunci=false;const q=cur(),nama={jari:'Hitung Jari',tambah:'Tambah Kurang',aljabar:'Aljabar Kotak Misteri'}[Q.mode];
+view(`<header><button onclick="home()">🏠</button><b>${nama}</b><span></span></header><div class="card"><div class="prog"><i style="width:${Q.i*10}%"></i></div><p class="sm">Soal ${Q.i+1} dari 10 · ${fase()}</p><h2>${q.t}</h2>${q.vis?`<div class="vis">${q.vis}</div>`:''}
+${q.tipe==='tunjuk'?tangan(0,true)+'<button class="btn" onclick="cek()">Cek jawabanku ✅</button>':(q.tipe==='hitung'?tangan(q.n,false):'')+(q.tipe==='tunjuk'?'':`<div class="opts">${q.o.map(o=>`<button class="opt" onclick="jawab(${o},this)">${o}</button>`).join('')}</div>`)}
+<div class="row"><button class="ghost" onclick="say(cur().say)">🔊 Dengar</button><button class="ghost" onclick="$('#fb').textContent='💡 '+cur().tip;say(cur().tip)">💡 Petunjuk</button></div><div id="fb"></div></div>`);say(q.say)}
+function cek(){jawab(document.querySelectorAll('#tg .f.up').length,null)}
+function jawab(v,el){if(kunci)return;kunci=true;const q=cur(),ok=v===q.a;
+if(ok){Q.benar++;S.cnt[Q.mode]=(S.cnt[Q.mode]||0)+1;sfx('ok');hujan('⭐');const p=PUJI[rnd(0,PUJI.length-1)];$('#fb').textContent='🎉 '+p;say(p);if(el)el.classList.add('ok')}
+else{sfx('no');const s=SEMANGAT[rnd(0,2)]+' Jawabannya '+q.a;$('#fb').textContent='💪 '+s;say(s);if(el)el.classList.add('no')}
+document.querySelectorAll('.opt').forEach(b=>{if(+b.textContent===q.a)b.classList.add('ok')});
+setTimeout(()=>{Q.i++;Q.i>=10?selesai():soal()},2200)}
+function selesai(){const b=Q.benar,xp=b*10+(b>=8?20:0),bin=b>=9?3:b>=7?2:b>=4?1:0;let msg='';
+S.xp+=xp;S.bin+=bin;beri('pemula');if(Q.mode==='jari'&&S.cnt.jari>=10)beri('jari');if(Q.mode==='aljabar'&&S.cnt.aljabar>=8)beri('aljabar');
+if(b>=8&&S.lv<3){S.lv++;msg='Naik ke '+fase()+'! 🚀'}else if(b<=3&&S.lv>1){S.lv--;msg='Kita ulang yang lebih mudah dulu ya 🌱'}
+simpan();sync('riwayat',{mode:Q.mode,level:Q.L,skor:xp,benar:b,total:10,durasi:Math.round((Date.now()-Q.t0)/1000)});sfx('ok');hujan(bin?'🌟':'🎈');
+const k=b>=8?'Luar biasa':b>=5?'Bagus sekali':'Terus berlatih ya';say(`${k} ${S.nama}! Kamu benar ${b} dari 10.`);
+view(`<div class="card"><div class="maskot">${b>=8?'🏆':b>=5?'😄':'🤗'}</div><h2>${k}, ${S.nama}!</h2><p class="sm">Benar ${b} dari 10 · +${xp} poin</p><h2>${'⭐'.repeat(bin)||'💪'}</h2><p class="sm">${msg}</p><button class="btn" onclick="kuis('${Q.mode}')">Main lagi 🔁</button><button class="btn" style="background:#fff" onclick="home()">Ke beranda 🏠</button></div>`)}
+
+/* ===== GAME: PECAH BALON ===== */
+let G=null;
+function balon(){const L=S.lv;G={skor:0,nyawa:3,t:45,L,n:0,hidup:true};view(`<header><button onclick="stopGame();home()">🏠</button><b>Pecah Balon</b><span></span></header><div class="card"><div class="hud"><span id="gs">⭐ 0</span><span id="gn">❤️❤️❤️</span><span id="gt">⏱ 45</span></div><h2 id="gq" style="font-size:1.6rem"></h2><div class="arena" id="ar"></div></div>`);tanyaB();say('Pecahkan balon yang jawabannya benar!');
+G.sp=setInterval(spawn,850);G.tm=setInterval(()=>{G.t--;$('#gt').textContent='⏱ '+G.t;if(G.t<=0)akhirB()},1000)}
+function stopGame(){if(G){G.hidup=false;clearInterval(G.sp);clearInterval(G.tm)}}
+function tanyaB(){G.q=genQ(Math.random()<.5?'tambah':'aljabar',G.L===3?2:G.L);G.q.vis=null;$('#gq').textContent=G.q.t.replace(' = ?','')+(G.q.t.includes('?')?' = ?':'');if(S.suara!==false&&G.q.say)say(G.q.say)}
+function spawn(){if(!G||!G.hidup)return;const ar=$('#ar');if(!ar)return;G.n++;const v=G.n%3===0?G.q.a:rnd(0,20),d=document.createElement('div');d.className='b';d.textContent=v;d.style.left=rnd(2,80)+'%';d.style.background=['#ff5d8f','#6c5ce7','#2ec4a6','#ff9f43','#3498db'][rnd(0,4)];d.style.animationDuration=(5+Math.random()*3)+'s';
+d.onclick=()=>{if(!G.hidup||d.dataset.x)return;d.dataset.x=1;d.textContent='💥';setTimeout(()=>d.remove(),200);if(v===G.q.a){G.skor+=10;sfx('ok');$('#gs').textContent='⭐ '+G.skor;tanyaB()}else{G.nyawa--;sfx('no');$('#gn').textContent='❤️'.repeat(G.nyawa)||'💔';if(G.nyawa<=0)akhirB()}};
+d.addEventListener('animationend',()=>d.remove());ar.appendChild(d)}
+function akhirB(){if(!G||!G.hidup)return;stopGame();const sk=G.skor,xp=Math.round(sk/2);S.xp+=xp;if(sk>=100)beri('balon');if(sk>=60)S.bin++;simpan();sync('riwayat',{mode:'balon',level:G.L,skor:sk,benar:sk/10,total:'',durasi:45});sfx('ok');hujan('🎈');say(`Permainan selesai! Skormu ${sk}.`);
+view(`<div class="card"><div class="maskot">🎈</div><h2>Skormu ${sk}!</h2><p class="sm">+${xp} poin</p><button class="btn" onclick="balon()">Main lagi 🔁</button><button class="btn" style="background:#fff" onclick="home()">Ke beranda 🏠</button></div>`)}
+
+/* ===== GAME: KARTU PASANGAN ===== */
+function pasangan(){const L=S.lv,qs=[],pakai=new Set();while(qs.length<6){const q=genQ('tambah',L);if(!pakai.has(q.a)){pakai.add(q.a);qs.push(q)}}
+const kt=acak(qs.flatMap((q,i)=>[{p:i,s:q.t.replace(' = ?','')},{p:i,s:String(q.a)}]));let buka=[],cocok=0,langkah=0,tahan=false;
+view(`<header><button onclick="home()">🏠</button><b>Kartu Pasangan</b><span></span></header><div class="card"><p class="sm">Cocokkan soal dengan jawabannya!</p><div class="hud"><span id="pl">Langkah: 0</span><span></span></div><div class="grid">${kt.map((k,i)=>`<button class="kartu" id="k${i}">❓</button>`).join('')}</div></div>`);say('Cocokkan soal dengan jawabannya!');
+kt.forEach((k,i)=>{$('#k'+i).onclick=()=>{const e=$('#k'+i);if(tahan||e.classList.contains('buka')||e.classList.contains('cocok'))return;e.textContent=k.s;e.classList.add('buka');sfx('tap');buka.push(i);if(buka.length===2){langkah++;$('#pl').textContent='Langkah: '+langkah;const[a,b]=buka;if(kt[a].p===kt[b].p){['#k'+a,'#k'+b].forEach(s=>{$(s).classList.replace('buka','cocok')});sfx('ok');buka=[];say(kt[a].s.length>3?lisan(kt[a].s)+' sama dengan '+qs[kt[a].p].a:'Cocok!');if(++cocok===6){const xp=Math.max(10,60-langkah*3);S.xp+=xp;S.bin++;simpan();sync('riwayat',{mode:'pasangan',level:L,skor:xp,benar:6,total:6,durasi:''});hujan('🌟');say('Hebat! Semua kartu cocok!');setTimeout(()=>view(`<div class="card"><div class="maskot">🃏</div><h2>Semua cocok!</h2><p class="sm">${langkah} langkah · +${xp} poin</p><button class="btn" onclick="pasangan()">Main lagi 🔁</button><button class="btn" style="background:#fff" onclick="home()">Ke beranda 🏠</button></div>`),1200)}}
+else{tahan=true;sfx('no');setTimeout(()=>{[a,b].forEach(n=>{const el=$('#k'+n);el.classList.remove('buka');el.textContent='❓'});buka=[];tahan=false},800)}}}});}
+
+S?home():masuk();
+</script>
+</body>
+</html>
