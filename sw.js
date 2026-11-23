@@ -1,39 +1,59 @@
-/* Service worker Si Jari Pintar: bisa dipakai tanpa internet.
-   Naikkan VERSI setiap kali index.html diubah agar pembaruan sampai ke HP. */
-const VERSI = 'jari-pintar-v1';
-const INTI = ['./', './index.html', './manifest.json', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
+/* =========================================================
+   SI JARI PINTAR - Service Worker (agar aplikasi bisa offline)
+   Ganti CACHE_NAME setiap kali index.html diperbarui!
+   ========================================================= */
 
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSI).then(c => c.addAll(INTI)).then(() => self.skipWaiting()));
-});
+"use strict";
 
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys()
-      .then(ks => Promise.all(ks.filter(k => k !== VERSI).map(k => caches.delete(k))))
-      .then(() => self.clients.claim())
+const CACHE_NAME = "si-jari-pintar-v1";
+
+/* Semua berkas inti aplikasi */
+const CORE_ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.webmanifest"
+];
+
+/* Pasang: simpan semua berkas inti */
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS))
   );
+  self.skipWaiting();
 });
 
-self.addEventListener('fetch', e => {
-  const req = e.request;
-  if (req.method !== 'GET') return;                       // POST ke Google Sheets tidak disentuh
-  const url = new URL(req.url);
-  if (url.hostname === 'script.google.com' || url.hostname === 'script.googleusercontent.com') return; // data peringkat selalu terbaru
+/* Aktifkan: bersihkan cache versi lama */
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+});
 
-  // Halaman: coba jaringan dulu, jika offline pakai cache
-  if (req.mode === 'navigate') {
-    e.respondWith(
-      fetch(req).then(r => { caches.open(VERSI).then(c => c.put('./index.html', r.clone())); return r; })
-        .catch(() => caches.match('./index.html'))
-    );
-    return;
-  }
-  // Aset lain (ikon, font): cache dulu, lalu simpan hasil jaringan
-  e.respondWith(
-    caches.match(req).then(hit => hit || fetch(req).then(r => {
-      if (r && (r.ok || r.type === 'opaque')) { const salin = r.clone(); caches.open(VERSI).then(c => c.put(req, salin)); }
-      return r;
-    }).catch(() => hit))
+/* Strategi: cache dulu, jika tidak ada ambil dari jaringan.
+   Permintaan ke Google Sheets (lintas domain) tidak dibaca dari cache. */
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+  if (req.method !== "GET") return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith(
+    caches.match(req, { ignoreSearch: true }).then((cached) => {
+      if (cached) return cached;
+      return fetch(req).then((res) => {
+        if (res && res.ok && res.type === "basic") {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+        }
+        return res;
+      }).catch(() => {
+        // Fallback navigasi ke halaman utama saat offline
+        if (req.mode === "navigate") return caches.match("./index.html");
+        return Response.error();
+      });
+    })
   );
 });
