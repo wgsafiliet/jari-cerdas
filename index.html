@@ -7,9 +7,528 @@
   <meta name="description" content="Game edukasi PWA menghitung cepat dengan jari dan aljabar dasar untuk anak TK sampai SD. Bisa dimainkan offline, skor tersimpan di Google Sheets.">
   <meta name="theme-color" content="#FF8A3D">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" type="image/png" href="./icons/icon-192.png">
-  <link rel="apple-touch-icon" href="./icons/icon-192.png">
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" type="image/png" href="data:image/png;base64,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">
+  <link rel="apple-touch-icon" href="data:image/png;base64,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">
+  <style>
+/* =========================================================
+   JARI CERDAS - Gaya tampilan (ramah anak, mobile-first)
+   ========================================================= */
+
+:root {
+  --bg: #FFF6E9;
+  --ink: #4A3728;
+  --ink-soft: #7A5A3A;
+  --card: #FFFFFF;
+  --orange: #FF8A3D;
+  --orange-dark: #E56A1F;
+  --green: #3AA655;
+  --purple: #9C6ADE;
+  --pink: #FF5D8F;
+  --yellow: #FFC93C;
+  --teal: #2BB3A3;
+  --line: #F0E2CE;
+  --shadow: 0 6px 0 rgba(122, 90, 58, 0.14);
+  --radius: 22px;
+  --mode-color: var(--orange);
+  --font: "Segoe UI Rounded", "SF Pro Rounded", ui-rounded, "Quicksand", "Nunito", "Trebuchet MS", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(255, 201, 60, 0.18) 0 90px, transparent 90px),
+    radial-gradient(circle at 88% 20%, rgba(255, 93, 143, 0.12) 0 110px, transparent 110px),
+    radial-gradient(circle at 50% 96%, rgba(58, 166, 85, 0.12) 0 130px, transparent 130px);
+  background-attachment: fixed;
+}
+
+button { font-family: var(--font); cursor: pointer; border: none; background: none; color: inherit; }
+
+/* ---------- Kerangka layar ---------- */
+.screen { display: none; min-height: 100dvh; flex-direction: column; }
+.screen.active { display: flex; animation: screenIn 0.35s ease; }
+@keyframes screenIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  padding-top: calc(12px + env(safe-area-inset-top));
+  background: rgba(255, 246, 233, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.brand-logo { width: 40px; height: 40px; border-radius: 13px; background: linear-gradient(145deg, var(--orange), var(--pink)); display: grid; place-items: center; box-shadow: var(--shadow); }
+.brand-logo svg { width: 30px; height: 30px; }
+.brand-name { font-weight: 800; font-size: 1.15rem; letter-spacing: 0.2px; }
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
+.topbar-spacer { width: 60px; }
+
+.screen-title { font-size: 1.2rem; font-weight: 800; margin: 0; flex: 1; text-align: center; }
+
+/* ---------- Tombol & chip ---------- */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 1rem;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.pill-btn.primary { background: linear-gradient(145deg, var(--orange), var(--orange-dark)); color: #fff; box-shadow: 0 5px 0 rgba(180, 84, 22, 0.45); }
+.pill-btn.primary:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(180, 84, 22, 0.45); }
+.pill-btn.ghost { background: var(--card); color: var(--ink-soft); border: 2px solid var(--line); box-shadow: var(--shadow); }
+.pill-btn.ghost:active { transform: translateY(2px); box-shadow: none; }
+.pill-btn.small { min-height: 40px; padding: 6px 14px; font-size: 0.85rem; }
+
+.icon-btn {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 2px solid var(--line);
+  display: grid; place-items: center;
+  box-shadow: var(--shadow);
+}
+.icon-btn.dark { background: rgba(0, 0, 0, 0.25); border-color: rgba(255, 255, 255, 0.25); }
+
+.profile-chip {
+  display: flex; flex-direction: column; align-items: flex-start;
+  padding: 5px 14px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 2px solid var(--line);
+  box-shadow: var(--shadow);
+  line-height: 1.15;
+}
+.profile-chip span { font-weight: 800; font-size: 0.9rem; }
+.profile-chip small { color: var(--ink-soft); font-size: 0.7rem; }
+
+/* ---------- Beranda ---------- */
+.home-main { width: 100%; max-width: 620px; margin: 0 auto; padding: 18px 16px calc(28px + env(safe-area-inset-bottom)); flex: 1; }
+
+.hero { text-align: center; padding: 14px 0 6px; }
+.hero-mascot { display: flex; justify-content: center; }
+.mascot-svg { width: 150px; max-width: 40vw; animation: bob 3s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
+.hero-title { margin: 4px 0 2px; font-size: 2rem; font-weight: 800; letter-spacing: 0.5px; color: var(--orange-dark); }
+.hero-tagline { margin: 0 0 12px; color: var(--ink-soft); font-weight: 600; }
+
+.sync-chip {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.sync-chip.ok { background: #E4F5E7; color: #227A3C; border: 1.5px solid #BFE7C8; }
+.sync-chip.warn { background: #FFF3D6; color: #9A6B12; border: 1.5px solid #F4DC9B; }
+
+.mode-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+@media (min-width: 640px) { .mode-grid { grid-template-columns: 1fr 1fr; } }
+
+.mode-card {
+  --mode-color: var(--orange);
+  display: flex;
+  gap: 14px;
+  background: var(--card);
+  border: 2.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease;
+}
+.mode-card:hover { transform: translateY(-3px); }
+.mode-ico {
+  flex: 0 0 62px;
+  width: 62px; height: 62px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, var(--mode-color), color-mix(in srgb, var(--mode-color) 70%, black));
+  display: grid; place-items: center;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.12);
+}
+.mode-ico svg { width: 34px; height: 34px; }
+.mode-info { flex: 1; min-width: 0; }
+.mode-name { font-weight: 800; font-size: 1.08rem; }
+.mode-aud {
+  font-size: 0.68rem; font-weight: 700; color: #fff;
+  background: var(--mode-color); border-radius: 999px; padding: 2px 9px; margin-left: 6px;
+  vertical-align: middle;
+}
+.mode-desc { color: var(--ink-soft); font-size: 0.86rem; margin: 4px 0 8px; }
+.mode-stars { display: flex; align-items: center; gap: 2px; }
+.mode-best { margin-left: 8px; font-size: 0.75rem; font-weight: 700; color: var(--ink-soft); }
+.level-pills { display: flex; gap: 8px; margin-top: 9px; }
+.level-pill {
+  width: 44px; height: 36px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1rem;
+  display: grid; place-items: center;
+}
+.level-pill.open { background: var(--mode-color); color: #fff; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18); }
+.level-pill.open:active { transform: translateY(2px); box-shadow: none; }
+.level-pill.locked { background: #F1EADC; color: #B9AFA4; cursor: not-allowed; }
+
+.home-footer { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+.home-note { text-align: center; color: var(--ink-soft); font-size: 0.78rem; margin: 14px 0 0; }
+
+/* ---------- Layar permainan ---------- */
+.game-topbar {
+  --mode-color: var(--orange);
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  padding-top: calc(10px + env(safe-area-inset-top));
+  background: linear-gradient(145deg, var(--mode-color), color-mix(in srgb, var(--mode-color) 72%, black));
+  border-radius: 0 0 22px 22px;
+}
+.mode-label { color: #fff; font-weight: 800; flex: 1; font-size: 1.02rem; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hud { display: flex; align-items: center; gap: 8px; }
+.hud-item {
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 6px 11px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.hud-item b { font-size: 0.95rem; }
+.hud-combo {
+  background: var(--yellow); color: #7A4A00;
+  border-radius: 12px; padding: 6px 10px;
+  font-weight: 800; font-size: 0.8rem;
+  animation: pulse 0.6s ease infinite alternate;
+}
+@keyframes pulse { from { transform: scale(1); } to { transform: scale(1.12); } }
+
+.timer-track { height: 10px; background: #F1E7D6; border-radius: 999px; margin: 12px 16px 0; overflow: hidden; }
+.timer-fill { height: 100%; width: 100%; background: linear-gradient(90deg, var(--green), var(--yellow), var(--orange)); border-radius: 999px; transition: width 0.1s linear; }
+.timer-fill.low { background: var(--pink); }
+
+.q-progress { text-align: center; color: var(--ink-soft); font-weight: 700; font-size: 0.82rem; margin-top: 8px; }
+
+.game-main { width: 100%; max-width: 620px; margin: 0 auto; padding: 12px 16px calc(24px + env(safe-area-inset-bottom)); flex: 1; }
+
+.question-card {
+  background: var(--card);
+  border: 3px dashed color-mix(in srgb, var(--mode-color) 55%, white);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.question-text { font-weight: 800; font-size: 1.05rem; margin-bottom: 8px; }
+.question-visual { display: flex; justify-content: center; }
+.question-hint { color: var(--ink-soft); font-size: 0.82rem; font-weight: 600; margin-top: 8px; }
+
+.hands-row { display: flex; align-items: flex-end; justify-content: center; gap: 6px; flex-wrap: nowrap; }
+.hand-svg { width: clamp(96px, 30vw, 150px); height: auto; }
+.hands-row .hand-svg { width: clamp(88px, 26vw, 132px); }
+.nine-svg { width: 100%; max-width: 430px; height: auto; }
+.plus-sign { font-size: 2rem; font-weight: 800; color: var(--ink-soft); padding: 0 4px 18px; }
+.plus-sign.minus { color: var(--pink); }
+
+.num-chip {
+  display: inline-grid; place-items: center;
+  min-width: 44px; height: 44px;
+  padding: 0 8px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--mode-color) 16%, white);
+  border: 2px solid color-mix(in srgb, var(--mode-color) 55%, white);
+  font-size: 1.3rem; font-weight: 800;
+}
+.num-chip.big { min-width: 56px; height: 56px; font-size: 1.7rem; align-self: flex-start; }
+.equation { font-size: 1.6rem; font-weight: 800; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
+.eq-box {
+  display: inline-grid; place-items: center;
+  min-width: 54px; height: 52px;
+  padding: 0 10px;
+  border: 3px dashed var(--pink);
+  border-radius: 16px;
+  color: var(--pink);
+  background: #FFF0F5;
+}
+.total-badge {
+  align-self: center;
+  background: var(--yellow);
+  color: #7A4A00;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+}
+.secret-wrap { position: relative; display: inline-flex; }
+.secret-wrap .hand-svg { width: clamp(88px, 26vw, 132px); opacity: 0.85; }
+.secret-q {
+  position: absolute; top: 30%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  background: var(--pink); color: #fff;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 1.5rem;
+  border: 3px solid #fff;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.option-btn {
+  min-height: 72px;
+  border-radius: 20px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--ink);
+  background: var(--card);
+  border: 2.5px solid var(--line);
+  box-shadow: 0 6px 0 rgba(122, 90, 58, 0.16);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s;
+}
+.option-btn:nth-child(1) { border-color: var(--orange); }
+.option-btn:nth-child(2) { border-color: var(--green); }
+.option-btn:nth-child(3) { border-color: var(--purple); }
+.option-btn:nth-child(4) { border-color: var(--teal); }
+.option-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(122, 90, 58, 0.16); }
+.option-btn:disabled { cursor: default; }
+.option-btn.correct { background: #E4F5E7; border-color: var(--green); color: #227A3C; animation: popIn 0.3s ease; }
+.option-btn.wrong { background: #FDE8EE; border-color: var(--pink); color: #B0305A; animation: shake 0.35s ease; }
+@keyframes popIn { from { transform: scale(0.9); } to { transform: scale(1); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+.feedback-overlay {
+  position: fixed; inset: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(74, 55, 40, 0.25);
+  z-index: 40;
+  padding: 18px;
+  padding-bottom: calc(18px + env(safe-area-inset-bottom));
+}
+.feedback-overlay.show { display: flex; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.feedback-card {
+  width: 100%; max-width: 560px;
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+.feedback-card.ok { background: linear-gradient(145deg, var(--green), #2C8A45); }
+.feedback-card.no { background: linear-gradient(145deg, var(--pink), #D14A76); }
+.feedback-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+.feedback-body { font-size: 0.95rem; line-height: 1.5; }
+.feedback-body b { background: rgba(255, 255, 255, 0.25); padding: 1px 8px; border-radius: 8px; }
+
+/* ---------- Layar hasil ---------- */
+.result-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px 16px calc(24px + env(safe-area-inset-bottom)); }
+.result-card {
+  width: 100%; max-width: 480px;
+  background: var(--card);
+  border-radius: 26px;
+  border: 2.5px solid var(--line);
+  box-shadow: var(--shadow);
+  padding: 24px 20px;
+  text-align: center;
+}
+.result-heading { margin: 0; font-size: 1.6rem; color: var(--orange-dark); }
+.result-mode { color: var(--ink-soft); font-weight: 700; margin: 4px 0 12px; }
+.result-stars { display: flex; justify-content: center; gap: 10px; min-height: 64px; }
+.star-pop { display: inline-flex; animation: starIn 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) backwards; }
+@keyframes starIn { from { transform: scale(0) rotate(-40deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+.result-note { font-weight: 700; color: var(--ink-soft); margin: 8px 0 14px; }
+.result-stats { display: flex; justify-content: center; gap: 10px; margin-bottom: 14px; }
+.stat {
+  flex: 1; max-width: 130px;
+  background: var(--bg);
+  border-radius: 16px;
+  padding: 10px 6px;
+  border: 2px solid var(--line);
+}
+.stat b { display: block; font-size: 1.25rem; }
+.stat span { font-size: 0.72rem; color: var(--ink-soft); font-weight: 700; }
+.result-badges { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.badge-chip {
+  display: flex; align-items: center; gap: 10px;
+  text-align: left;
+  background: #FFF7DC;
+  border: 2px solid #F4DC9B;
+  color: #7A4A00;
+  border-radius: 16px;
+  padding: 10px 12px;
+  font-size: 0.8rem;
+  animation: popIn 0.4s ease;
+}
+.badge-chip.new { animation: pulse 0.8s ease 3; }
+.badge-ico { flex: 0 0 auto; display: grid; place-items: center; }
+.badge-hint { color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; }
+.result-sync { color: var(--ink-soft); font-size: 0.76rem; margin: 4px 0 14px; }
+.result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ---------- Papan skor ---------- */
+.board-main { width: 100%; max-width: 620px; margin: 0 auto; padding: 14px 16px calc(28px + env(safe-area-inset-bottom)); flex: 1; }
+.board-actions { display: flex; justify-content: flex-end; }
+.board-status { font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); margin: 10px 2px; }
+.board-status.ok { color: #227A3C; }
+.board-status.warn { color: #9A6B12; }
+.board-flush { font-size: 0.78rem; color: #B0305A; font-weight: 700; }
+.board-list { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.board-loading { text-align: center; color: var(--ink-soft); font-weight: 700; padding: 30px 0; }
+.board-row {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow);
+}
+.board-row.podium { background: #FFFBF0; border-color: #F4DC9B; }
+.board-rank {
+  width: 36px; height: 36px; flex: 0 0 36px;
+  border-radius: 50%;
+  background: #F1EADC;
+  color: var(--ink);
+  font-weight: 800;
+  display: grid; place-items: center;
+}
+.board-name { flex: 1; min-width: 0; font-weight: 800; }
+.board-name small { display: block; font-weight: 600; color: var(--ink-soft); font-size: 0.72rem; }
+.board-score { font-weight: 800; font-size: 1.15rem; color: var(--orange-dark); text-align: right; }
+.board-score small { display: block; font-size: 0.66rem; color: var(--ink-soft); }
+
+/* ---------- Layar belajar ---------- */
+.learn-main { width: 100%; max-width: 620px; margin: 0 auto; padding: 14px 16px calc(28px + env(safe-area-inset-bottom)); flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.learn-card {
+  background: var(--card);
+  border: 2.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+}
+.learn-card h3 { margin: 0 0 8px; font-size: 1.05rem; color: var(--orange-dark); }
+.learn-card p { margin: 0 0 10px; line-height: 1.6; font-size: 0.92rem; color: var(--ink); }
+.learn-visual { display: flex; justify-content: center; }
+.learn-visual .mascot-svg { width: 110px; animation: none; }
+
+.nine-demo { text-align: center; }
+.nine-chooser { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 10px; }
+.nine-btn {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  font-weight: 800;
+  background: #F1EADC;
+  color: var(--ink);
+  border: 2px solid var(--line);
+}
+.nine-btn.sel { background: var(--purple); color: #fff; border-color: var(--purple); }
+.nine-explain { line-height: 1.6; font-size: 0.92rem; color: var(--ink); margin: 10px 0 0; }
+
+/* ---------- Modal ---------- */
+.modal {
+  position: fixed; inset: 0;
+  background: rgba(74, 55, 40, 0.4);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 60;
+  padding: 18px;
+}
+.modal.show { display: flex; }
+.modal-card {
+  width: 100%; max-width: 420px;
+  background: var(--card);
+  border-radius: 24px;
+  padding: 22px 20px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.25s ease;
+}
+.modal-title { margin: 0 0 14px; text-align: center; color: var(--orange-dark); }
+.field { display: block; margin-bottom: 12px; }
+.field span { display: block; font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); margin-bottom: 5px; }
+.field input, .field select {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 14px;
+  border: 2px solid var(--line);
+  background: var(--bg);
+  padding: 10px 14px;
+  font-size: 1rem;
+  font-family: var(--font);
+  color: var(--ink);
+  outline: none;
+}
+.field input:focus, .field select:focus { border-color: var(--orange); }
+.conn-box { background: var(--bg); border: 2px dashed var(--line); border-radius: 16px; padding: 12px 14px; margin: 14px 0; }
+.conn-box b { font-size: 0.85rem; }
+.conn-status { font-size: 0.78rem; color: var(--ink-soft); margin: 6px 0 10px; line-height: 1.5; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+/* ---------- Toast & confetti ---------- */
+.toast {
+  position: fixed;
+  left: 50%; bottom: calc(20px + env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: #FFF6E9;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 80;
+  max-width: 88vw;
+  text-align: center;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.confetti-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 70;
+}
+
+/* Aksesibilitas: pengguna keyboard & pembaca layar */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+</style>
 </head>
 <body>
 
@@ -193,12 +712,1341 @@
   <div id="toast" class="toast" role="status"></div>
   <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
 
-  <script src="./js/config.js"></script>
-  <script src="./js/utils.js"></script>
-  <script src="./js/hands.js"></script>
-  <script src="./js/modes.js"></script>
-  <script src="./js/sheets.js"></script>
-  <script src="./js/game.js"></script>
-  <script src="./js/app.js"></script>
+  <script>
+/* =========================================================
+   JARI CERDAS - Konfigurasi Utama
+   ---------------------------------------------------------
+   UNTUK GURU / ORANG TUA:
+   1. Buat Google Spreadsheet baru (beri nama mis. "DB Jari Cerdas").
+   2. Menu Ekstensi > Apps Script, salin isi file apps-script/Code.gs.
+   3. Deploy > Deployment baru > Aplikasi web:
+        - Execute as: Me
+        - Who has access: Anyone
+   4. Salin URL yang berakhiran /exec dan tempel di bawah ini.
+   Contoh: APPS_SCRIPT_URL: "https://script.google.com/macros/s/XXXX/exec"
+   Jika dikosongkan, skor tetap tersimpan di perangkat (offline).
+   ========================================================= */
+
+window.CONFIG = {
+  APP_NAME: "Jari Cerdas",
+  APP_TAGLINE: "Petualangan Hitung Cepat dengan Jari",
+  // URL Web App Google Apps Script (database Google Sheets). Kosongkan jika belum disiapkan.
+  APPS_SCRIPT_URL: "",
+  // Jumlah soal per sesi bermain
+  QUESTIONS_PER_SESSION: 10,
+  // Batas maksimal baris data yang dikelola di Google Sheets
+  MAX_SHEET_ROWS: 2000,
+  // Waktu menjawab per soal (detik) - bonus skor makin besar jika menjawab cepat
+  TIME_PER_LEVEL: {
+    hitung: [25, 20, 15],
+    jumlah: [25, 20, 18],
+    kali: [30, 25, 25],
+    aljabar: [30, 25, 25]
+  }
+};
+
+</script>
+  <script>
+/* =========================================================
+   JARI CERDAS - Utilitas umum (DOM, suara, confetti, penyimpanan)
+   ========================================================= */
+
+"use strict";
+
+/* ---------- Helper DOM ---------- */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function show(el) { el.classList.add("show"); }
+function hide(el) { el.classList.remove("show"); }
+
+/* ---------- Helper angka ---------- */
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function choice(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* Membuat pilihan jawaban (1 benar + 3 pengecoh) */
+function buildOptions(answer, opts = {}) {
+  const min = opts.min !== undefined ? opts.min : 0;
+  const max = opts.max !== undefined ? opts.max : 99;
+  const cand = new Set([answer]);
+  const deltas = shuffle([1, -1, 2, -2, 3, -3, 10, -10]);
+  for (const d of deltas) {
+    if (cand.size >= 4) break;
+    const v = answer + d;
+    if (v >= min && v <= max && !cand.has(v)) cand.add(v);
+  }
+  let filler = answer;
+  while (cand.size < 4) {
+    filler = (filler + 1) % (max + 1);
+    if (filler < min) filler = min;
+    if (!cand.has(filler)) cand.add(filler);
+  }
+  return shuffle(Array.from(cand));
+}
+
+/* ---------- Penyimpanan lokal (localStorage) ---------- */
+const Store = {
+  get(key, fallback) {
+    try {
+      const raw = localStorage.getItem("jariCerdas." + key);
+      return raw === null ? fallback : JSON.parse(raw);
+    } catch (e) {
+      return fallback;
+    }
+  },
+  set(key, value) {
+    try {
+      localStorage.setItem("jariCerdas." + key, JSON.stringify(value));
+    } catch (e) { /* storage penuh / diblokir - abaikan */ }
+  },
+  remove(key) {
+    try { localStorage.removeItem("jariCerdas." + key); } catch (e) {}
+  }
+};
+
+/* ---------- Suara (Web Audio API, tanpa file audio) ---------- */
+const Sound = {
+  ctx: null,
+  muted: Store.get("muted", false),
+  ensure() {
+    if (!this.ctx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) this.ctx = new AC();
+    }
+    if (this.ctx && this.ctx.state === "suspended") this.ctx.resume();
+    return this.ctx;
+  },
+  tone(freq, start, dur, type = "sine", gain = 0.18) {
+    const ctx = this.ensure();
+    if (!ctx || this.muted) return;
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, ctx.currentTime + start);
+    g.gain.exponentialRampToValueAtTime(gain, ctx.currentTime + start + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + start + dur);
+    osc.connect(g).connect(ctx.destination);
+    osc.start(ctx.currentTime + start);
+    osc.stop(ctx.currentTime + start + dur + 0.05);
+  },
+  click() { this.tone(600, 0, 0.08, "triangle", 0.1); },
+  correct() {
+    this.tone(523, 0, 0.12); this.tone(659, 0.1, 0.12); this.tone(784, 0.2, 0.18);
+  },
+  wrong() {
+    this.tone(220, 0, 0.2, "sawtooth", 0.1); this.tone(180, 0.15, 0.25, "sawtooth", 0.1);
+  },
+  star() { this.tone(880, 0, 0.15); this.tone(1174, 0.12, 0.2); },
+  levelup() {
+    this.tone(523, 0, 0.1); this.tone(659, 0.08, 0.1);
+    this.tone(784, 0.16, 0.1); this.tone(1046, 0.24, 0.25);
+  },
+  toggle() {
+    this.muted = !this.muted;
+    Store.set("muted", this.muted);
+    return this.muted;
+  }
+};
+
+/* ---------- Confetti sederhana (canvas) ---------- */
+const Confetti = {
+  canvas: null, ctx2d: null, parts: [], raf: null,
+  init() {
+    this.canvas = $("#confetti-canvas");
+    if (!this.canvas) return;
+    this.ctx2d = this.canvas.getContext("2d");
+    window.addEventListener("resize", () => this.resize());
+    this.resize();
+  },
+  resize() {
+    if (!this.canvas) return;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  },
+  burst(count = 80) {
+    if (!this.canvas) return;
+    const colors = ["#FF8A3D", "#3AA655", "#FF5D8F", "#9C6ADE", "#2BB3A3", "#FFC93C"];
+    for (let i = 0; i < count; i++) {
+      this.parts.push({
+        x: Math.random() * this.canvas.width,
+        y: -20 - Math.random() * 140,
+        w: 6 + Math.random() * 8,
+        h: 8 + Math.random() * 10,
+        vy: 2 + Math.random() * 3.2,
+        vx: -1.6 + Math.random() * 3.2,
+        rot: Math.random() * Math.PI,
+        vr: -0.12 + Math.random() * 0.24,
+        color: choice(colors)
+      });
+    }
+    if (!this.raf) this.loop();
+  },
+  loop() {
+    if (!this.ctx2d) return;
+    this.raf = requestAnimationFrame(() => this.loop());
+    const c = this.ctx2d;
+    c.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.parts = this.parts.filter(p => p.y < this.canvas.height + 30);
+    if (this.parts.length === 0) {
+      cancelAnimationFrame(this.raf);
+      this.raf = null;
+      return;
+    }
+    for (const p of this.parts) {
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      c.save();
+      c.translate(p.x, p.y);
+      c.rotate(p.rot);
+      c.fillStyle = p.color;
+      c.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      c.restore();
+    }
+  }
+};
+
+/* ---------- Toast ---------- */
+let toastTimer = null;
+function toast(msg) {
+  const t = $("#toast");
+  if (!t) return;
+  t.textContent = msg;
+  show(t);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => hide(t), 2600);
+}
+
+/* ---------- Format tanggal Indonesia ---------- */
+function formatTanggal(d) {
+  try {
+    return new Intl.DateTimeFormat("id-ID", {
+      day: "numeric", month: "short", year: "numeric",
+      hour: "2-digit", minute: "2-digit"
+    }).format(d);
+  } catch (e) {
+    return d.toISOString().slice(0, 16).replace("T", " ");
+  }
+}
+
+/* Deteksi apakah berjalan di dalam iframe (mode preview) */
+function isEmbedded() {
+  try { return window.self !== window.top; } catch (e) { return true; }
+}
+
+</script>
+  <script>
+/* =========================================================
+   JARI CERDAS - Renderer tangan SVG (tanpa file gambar)
+   Semua ilustrasi tangan dibuat dengan SVG sehingga tetap
+   ringan dan bekerja offline.
+   ========================================================= */
+
+"use strict";
+
+const HAND_COLORS = {
+  skin: "#FFC89E",
+  skinDark: "#E39A5F",
+  nub: "#FFDDBE",
+  folded: "#B9AFA4",
+  foldedDark: "#8E8579",
+  ink: "#4A3728",
+  cheek: "#FF9E80"
+};
+
+/* Satu tangan dengan sejumlah jari terangkat.
+   up     : jumlah jari terangkat (0-5)
+   folded : array indeks jari yang "ditekuk" khusus (0=ibu jari..4=kelingking), ditandai kelabu
+   face   : tampilkan wajah di telapak (default true) */
+function handSVG(up, opts = {}) {
+  const folded = opts.folded || [];
+  const showFace = opts.face !== false;
+  const mirror = opts.mirror === true;
+  const label = opts.label || null;
+
+  // Urutan jari terangkat: ibu jari, telunjuk, tengah, manis, kelingking
+  const order = [0, 1, 2, 3, 4];
+  const raisedSet = new Set(order.slice(0, Math.max(0, Math.min(5, up))));
+  const foldedSet = new Set(folded);
+
+  // Posisi 4 jari (telunjuk s.d. kelingking) dan ibu jari
+  const fingerXs = [30, 55, 80, 105];
+  const fingerW = 21;
+  const upH = 58;
+  const palmTop = 100;
+
+  let f = "";
+  // Empat jari lurus
+  fingerXs.forEach((x, i) => {
+    const idx = i + 1; // urutan global 1..4 (0 = ibu jari)
+    const isUp = raisedSet.has(idx);
+    const isFold = foldedSet.has(idx);
+    const fill = isFold ? HAND_COLORS.folded : (isUp ? HAND_COLORS.skin : HAND_COLORS.nub);
+    const stroke = isFold ? HAND_COLORS.foldedDark : HAND_COLORS.skinDark;
+    if (isUp) {
+      f += `<rect x="${x}" y="${palmTop - upH}" width="${fingerW}" height="${upH + 14}" rx="${fingerW / 2}" fill="${fill}" stroke="${stroke}" stroke-width="2.5"/>`;
+    } else if (isFold) {
+      // jari ditekuk: tampak pendek dan condong
+      f += `<rect x="${x - 2}" y="${palmTop - 18}" width="${fingerW + 4}" height="26" rx="10" fill="${fill}" stroke="${stroke}" stroke-width="2.5" transform="rotate(14 ${x} ${palmTop})"/>`;
+    } else {
+      f += `<rect x="${x}" y="${palmTop - 15}" width="${fingerW}" height="22" rx="${fingerW / 2}" fill="${fill}" stroke="${stroke}" stroke-width="2.5"/>`;
+    }
+  });
+  // Ibu jari (miring di sisi kiri)
+  {
+    const isUp = raisedSet.has(0);
+    const isFold = foldedSet.has(0);
+    const fill = isFold ? HAND_COLORS.folded : (isUp ? HAND_COLORS.skin : HAND_COLORS.nub);
+    const stroke = isFold ? HAND_COLORS.foldedDark : HAND_COLORS.skinDark;
+    if (isUp) {
+      f += `<g transform="rotate(-24 24 128)"><rect x="14" y="84" width="${fingerW}" height="66" rx="${fingerW / 2}" fill="${fill}" stroke="${stroke}" stroke-width="2.5"/></g>`;
+    } else {
+      f += `<g transform="rotate(-24 24 128)"><rect x="14" y="108" width="${fingerW}" height="30" rx="${fingerW / 2}" fill="${fill}" stroke="${stroke}" stroke-width="2.5"/></g>`;
+    }
+  }
+
+  // Telapak + wajah
+  const face = showFace ? `
+      <circle cx="60" cy="134" r="5.5" fill="${HAND_COLORS.ink}"/>
+      <circle cx="90" cy="134" r="5.5" fill="${HAND_COLORS.ink}"/>
+      <path d="M 62 152 Q 75 164 88 152" fill="none" stroke="${HAND_COLORS.ink}" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="48" cy="146" r="6" fill="${HAND_COLORS.cheek}" opacity="0.55"/>
+      <circle cx="102" cy="146" r="6" fill="${HAND_COLORS.cheek}" opacity="0.55"/>` : "";
+
+  const labelEl = label ? `<text x="75" y="204" text-anchor="middle" font-size="19" font-weight="800" fill="${HAND_COLORS.ink}" font-family="inherit">${label}</text>` : "";
+
+  return `<svg class="hand-svg" viewBox="0 0 150 212" role="img" aria-label="tangan dengan ${up} jari terangkat">
+    ${f}
+    <rect x="22" y="${palmTop}" width="106" height="86" rx="30" fill="${HAND_COLORS.skin}" stroke="${HAND_COLORS.skinDark}" stroke-width="3"/>
+    ${face}
+    ${labelEl}
+  </svg>`;
+}
+
+/* Grup tangan untuk menghitung 1-10 (dua tangan jika > 5).
+   Tanpa label angka agar anak menghitung sendiri jawabannya. */
+function countHandsSVG(n) {
+  n = Math.max(0, Math.min(20, n));
+  if (n <= 5) {
+    return `<div class="hands-row">${handSVG(n)}</div>`;
+  }
+  const first = Math.min(5, n - 5);
+  const second = n - 5;
+  return `<div class="hands-row">${handSVG(5)}<span class="plus-sign">+</span>${handSVG(second, { mirror: true })}</div>`;
+}
+
+/* Ilustrasi penjumlahan a + b (dua tangan berdampingan) */
+function addHandsSVG(a, b) {
+  return `<div class="hands-row">${handSVG(Math.max(0, Math.min(5, a)), { label: String(a) })}<span class="plus-sign">+</span>${handSVG(Math.max(0, Math.min(5, b)), { mirror: true, label: String(b) })}</div>`;
+}
+
+/* Ilustrasi pengurangan a - b: jari b ditekuk/dililit kelabu */
+function subHandsSVG(a, b) {
+  const aC = Math.max(0, Math.min(5, a));
+  const folded = [];
+  for (let i = 0; i < Math.max(0, Math.min(aC, b)); i++) folded.push(4 - i); // kelingking dulu
+  return `<div class="hands-row">${handSVG(aC, { folded, label: String(a) })}<span class="plus-sign minus">&minus;</span>${handSVG(Math.max(0, Math.min(5, b)), { mirror: true, folded: [0, 1, 2, 3, 4], label: String(b) })}</div>`;
+}
+
+/* Baris 10 jari untuk trik perkalian 9.
+   foldIndex: jari yang ditekuk (1-10), 0 = tidak ada.
+   Label angka 1-10 di atas tiap jari. */
+function nineFingersSVG(foldIndex) {
+  const W = 330, top = 46, upH = 56, palmTop = 102;
+  const fingerW = 20, gap = 31;
+  let fingers = "";
+  let labels = "";
+  for (let i = 1; i <= 10; i++) {
+    const x = 10 + (i - 1) * gap;
+    const isFold = i === foldIndex;
+    if (isFold) {
+      fingers += `<rect x="${x - 3}" y="${palmTop - 20}" width="${fingerW + 6}" height="30" rx="11" fill="${HAND_COLORS.folded}" stroke="${HAND_COLORS.foldedDark}" stroke-width="2.5" transform="rotate(16 ${x} ${palmTop})"/>`;
+    } else {
+      fingers += `<rect x="${x}" y="${top}" width="${fingerW}" height="${upH + 14}" rx="${fingerW / 2}" fill="${HAND_COLORS.skin}" stroke="${HAND_COLORS.skinDark}" stroke-width="2.5"/>`;
+    }
+    const badge = isFold
+      ? `<circle cx="${x + fingerW / 2}" cy="24" r="13" fill="#FF5D8F"/><text x="${x + fingerW / 2}" y="29" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">${i}</text>`
+      : `<circle cx="${x + fingerW / 2}" cy="24" r="13" fill="#FFE3CC"/><text x="${x + fingerW / 2}" y="29" text-anchor="middle" font-size="13" font-weight="800" fill="${HAND_COLORS.ink}">${i}</text>`;
+    labels += badge;
+  }
+  return `<svg class="nine-svg" viewBox="0 0 ${W} 196" role="img" aria-label="sepuluh jari, jari ${foldIndex} ditekuk">
+    ${labels}
+    ${fingers}
+    <rect x="6" y="${palmTop}" width="150" height="82" rx="26" fill="${HAND_COLORS.skin}" stroke="${HAND_COLORS.skinDark}" stroke-width="3"/>
+    <rect x="170" y="${palmTop}" width="150" height="82" rx="26" fill="${HAND_COLORS.skin}" stroke="${HAND_COLORS.skinDark}" stroke-width="3"/>
+    <circle cx="66" cy="136" r="5" fill="${HAND_COLORS.ink}"/><circle cx="94" cy="136" r="5" fill="${HAND_COLORS.ink}"/>
+    <path d="M 68 150 Q 80 160 92 150" fill="none" stroke="${HAND_COLORS.ink}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="232" cy="136" r="5" fill="${HAND_COLORS.ink}"/><circle cx="260" cy="136" r="5" fill="${HAND_COLORS.ink}"/>
+    <path d="M 234 150 Q 246 160 258 150" fill="none" stroke="${HAND_COLORS.ink}" stroke-width="3" stroke-linecap="round"/>
+  </svg>`;
+}
+
+/* Maskot sapaan di halaman utama: tangan bebas dua jari + bintang */
+function mascotSVG() {
+  return `<svg class="mascot-svg" viewBox="0 0 190 220" role="img" aria-label="maskot tangan cerdas">
+    <g>
+      <circle cx="30" cy="40" r="7" fill="#FFC93C"/>
+      <circle cx="160" cy="30" r="9" fill="#FF5D8F"/>
+      <path d="M 150 52 l 4 8 9 1 -6 6 1 9 -8 -4 -8 4 1 -9 -6 -6 9 -1 z" fill="#9C6ADE"/>
+    </g>
+    ${handSVG(2, { face: true })}
+  </svg>`;
+}
+
+/* Bintang untuk hasil sesi (terisi / kosong) */
+function starSVG(filled, size = 44) {
+  const fill = filled ? "#FFC93C" : "#E8DFD2";
+  const stroke = filled ? "#E8A93C" : "#CFC5B4";
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" role="img" aria-label="bintang">
+    <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"
+      fill="${fill}" stroke="${stroke}" stroke-width="1.5" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+</script>
+  <script>
+/* =========================================================
+   JARI CERDAS - Generator soal untuk 4 mode permainan
+   1. hitung  : Menghitung jari 1-10 (TK)
+   2. jumlah  : Penjumlahan & pengurangan cepat (SD awal)
+   3. kali    : Trik jari perkalian 9 (SD)
+   4. aljabar : Mencari angka yang hilang (SD)
+   ========================================================= */
+
+"use strict";
+
+/* ---------- Komponen tampilan kecil ---------- */
+function numChip(n, extra) {
+  return `<span class="num-chip ${extra || ""}">${n}</span>`;
+}
+function eqHTML(inner) {
+  return `<div class="equation">${inner}</div>`;
+}
+function qBox(sym) {
+  return `<span class="eq-box">${sym || "?"}</span>`;
+}
+
+const MODE_ICONS = {
+  hitung: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="22" width="28" height="20" rx="9" fill="#fff" opacity=".9"/><rect x="12" y="8" width="6" height="18" rx="3" fill="#fff" opacity=".9"/><rect x="21" y="4" width="6" height="22" rx="3" fill="#fff" opacity=".9"/><rect x="30" y="8" width="6" height="18" rx="3" fill="#fff" opacity=".9"/></svg>`,
+  jumlah: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="20" width="36" height="9" rx="4.5" fill="#fff" opacity=".9"/><rect x="19.5" y="6" width="9" height="37" rx="4.5" fill="#fff" opacity=".9"/></svg>`,
+  kali: `<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18" fill="none" stroke="#fff" stroke-width="5" opacity=".9"/><rect x="14" y="21.5" width="20" height="5" rx="2.5" fill="#fff" opacity=".9" transform="rotate(45 24 24)"/><rect x="14" y="21.5" width="20" height="5" rx="2.5" fill="#fff" opacity=".9" transform="rotate(-45 24 24)"/></svg>`,
+  aljabar: `<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18" fill="none" stroke="#fff" stroke-width="5" opacity=".9"/><path d="M 18 19 a 6 6 0 1 1 8 6 c -2 1 -2 2 -2 5" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/><circle cx="24" cy="36" r="3" fill="#fff" opacity=".9"/></svg>`
+};
+
+/* =========================================================
+   Definisi mode
+   ========================================================= */
+const MODES = {
+
+  /* ---------------- MODE 1: HITUNG JARI (TK) ---------------- */
+  hitung: {
+    id: "hitung",
+    name: "Hitung Jari",
+    audience: "TK",
+    color: "#FF8A3D",
+    desc: "Berapa jari yang terangkat? Hitung cepat!",
+    levels: ["1 - 5", "1 - 10", "1 - 10 Kilat"],
+    make(level) {
+      const max = level === 1 ? 5 : 10;
+      const n = randInt(1, max);
+      return {
+        questionText: "Ada berapa jari terangkat?",
+        visualHTML: countHandsSVG(n),
+        equationHTML: eqHTML(qBox()),
+        hint: "Hitung satu per satu: 1, 2, 3, ...",
+        answer: n,
+        options: buildOptions(n, { min: 1, max: 12 }),
+        explain: `Betul, ada ${n} jari. Ayo latih terus supaya makin cepat!`
+      };
+    }
+  },
+
+  /* ---------------- MODE 2: JUMLAH CEPAT (SD AWAL) ---------------- */
+  jumlah: {
+    id: "jumlah",
+    name: "Jumlah Cepat",
+    audience: "SD kelas awal",
+    color: "#3AA655",
+    desc: "Tambah dan kurang pakai bantuan jari.",
+    levels: ["Tambah 1-5", "Tambah sampai 10", "Kurang & Cepat"],
+    make(level) {
+      if (level === 1) {
+        const a = randInt(1, 5), b = randInt(1, 5);
+        const ans = a + b;
+        return {
+          questionText: "Berapa jumlahnya?",
+          visualHTML: addHandsSVG(a, b),
+          equationHTML: eqHTML(`${numChip(a)} <span class="eq-op">+</span> ${numChip(b)} <span class="eq-op">=</span> ${qBox()}`),
+          hint: "Hitung semua jari yang terangkat.",
+          answer: ans,
+          options: buildOptions(ans, { min: 1, max: 12 }),
+          explain: `${a} + ${b} = ${ans}. Hitung jari kiri dulu, lalu lanjut ke jari kanan.`
+        };
+      }
+      if (level === 2) {
+        const sum = randInt(4, 10);
+        const a = randInt(1, sum - 1);
+        const b = sum - a;
+        const aHand = a <= 5, bHand = b <= 5;
+        const left = aHand ? addHandSingle(a) : numChip(a, "big");
+        const right = bHand ? addHandSingle(b, true) : numChip(b, "big");
+        const ans = sum;
+        return {
+          questionText: "Berapa jumlahnya?",
+          visualHTML: `<div class="hands-row">${left}<span class="plus-sign">+</span>${right}</div>`,
+          equationHTML: eqHTML(`${numChip(a)} <span class="eq-op">+</span> ${numChip(b)} <span class="eq-op">=</span> ${qBox()}`),
+          hint: aHand || bHand ? "Pakai jari yang terlihat, angka besar simpan di kepala." : "Lengkapi dulu sampai 10, baru sisaannya ditambah.",
+          answer: ans,
+          options: buildOptions(ans, { min: 2, max: 14 }),
+          explain: `${a} + ${b} = ${ans}.`
+        };
+      }
+      // Level 3: pengurangan cepat
+      const a = randInt(3, 10);
+      const b = randInt(1, a - 1);
+      const ans = a - b;
+      const aHand = a <= 5;
+      return {
+        questionText: "Berapa hasilnya?",
+        visualHTML: aHand ? subHandsSVG(a, b) : `<div class="hands-row">${numChip(a, "big")}<span class="plus-sign minus">&minus;</span>${addHandSingle(b, true)}</div>`,
+        equationHTML: eqHTML(`${numChip(a)} <span class="eq-op">&minus;</span> ${numChip(b)} <span class="eq-op">=</span> ${qBox()}`),
+        hint: "Hitung mundur dari " + a + ": " + (a - 1) + ", " + (a - 2) + ", ...",
+        answer: ans,
+        options: buildOptions(ans, { min: 0, max: 10 }),
+        explain: `${a} &minus; ${b} = ${ans}. Jari yang ditekuk adalah yang "dipindah".`
+      };
+    }
+  },
+
+  /* ---------------- MODE 3: TRIK JARI x9 (SD) ---------------- */
+  kali: {
+    id: "kali",
+    name: "Trik Jari kali 9",
+    audience: "SD",
+    color: "#9C6ADE",
+    desc: "Trik ajaib: tekuk satu jari, langsung dapat jawaban!",
+    levels: ["9 x 1-5", "9 x 1-10", "Kebalikannya"],
+    make(level) {
+      if (level === 3) {
+        // soal kebalikan: hasil diketahui, cari pengalinya
+        const n = randInt(1, 10);
+        const hasil = 9 * n;
+        return {
+          questionText: `${hasil} adalah hasil dari 9 kali berapa?`,
+          visualHTML: nineFingersSVG(n),
+          equationHTML: eqHTML(`${numChip(9)} <span class="eq-op">&times;</span> ${qBox()} <span class="eq-op">=</span> ${numChip(hasil)}`),
+          hint: "Lihat jari yang ditekuk: urutan ke berapa?",
+          answer: n,
+          options: buildOptions(n, { min: 1, max: 10 }),
+          explain: `9 &times; ${n} = ${hasil}. Tekuk jari ke-${n}: kiri ${n - 1} jari, kanan ${10 - n} jari.`
+        };
+      }
+      const maxN = level === 1 ? 5 : 10;
+      const n = randInt(1, maxN);
+      const hasil = 9 * n;
+      return {
+        questionText: "Berapa hasilnya?",
+        visualHTML: nineFingersSVG(n),
+        equationHTML: eqHTML(`${numChip(9)} <span class="eq-op">&times;</span> ${numChip(n)} <span class="eq-op">=</span> ${qBox()}`),
+        hint: `Tekuk jari ke-${n}. Jari kiri = puluhan, jari kanan = satuan.`,
+        answer: hasil,
+        options: buildOptions(hasil, { min: 0, max: 90 }),
+        explain: `Tekuk jari ke-${n}: kiri ada ${n - 1} jari (${n - 1} puluhan), kanan ada ${10 - n} jari (${10 - n} satuan) &rarr; ${hasil}.`
+      };
+    }
+  },
+
+  /* ---------------- MODE 4: ALJABAR JARI (SD) ---------------- */
+  aljabar: {
+    id: "aljabar",
+    name: "Aljabar Jari",
+    audience: "SD",
+    color: "#FF5D8F",
+    desc: "Cari angka rahasia yang hilang!",
+    levels: ["Kotak Awal", "Cari yang Hilang", "Sampai 20"],
+    make(level) {
+      if (level === 1) {
+        const b = randInt(1, 4);
+        const miss = randInt(1, 5);
+        const c = b + miss;
+        return {
+          questionText: "Berapa angka di kotak?",
+          visualHTML: `<div class="hands-row">${addHandSingle(b)}<span class="plus-sign">+</span>${addHandSingle(miss, true, true)}<span class="total-badge">total ${c}</span></div>`,
+          equationHTML: eqHTML(`${qBox()} <span class="eq-op">+</span> ${numChip(b)} <span class="eq-op">=</span> ${numChip(c)}`),
+          hint: `Total harus ${c}. Jari kelabu masih rahasia!`,
+          answer: miss,
+          options: buildOptions(miss, { min: 0, max: 10 }),
+          explain: `${miss} + ${b} = ${c}. Coba: mulai dari ${b}, hitung naik sampai ${c}.`
+        };
+      }
+      if (level === 2) {
+        const a = randInt(1, 9);
+        const miss = randInt(1, 10 - Math.max(1, a - 5));
+        const c = a + miss;
+        return {
+          questionText: "Berapa angka di kotak?",
+          visualHTML: `<div class="hands-row">${a <= 5 ? addHandSingle(a) : numChip(a, "big")}<span class="plus-sign">+</span>${addHandSingle(Math.min(miss, 5), true, true)}<span class="total-badge">total ${c}</span></div>`,
+          equationHTML: eqHTML(`${numChip(a)} <span class="eq-op">+</span> ${qBox()} <span class="eq-op">=</span> ${numChip(c)}`),
+          hint: `Dari ${a}, berapa langkah lagi sampai ${c}?`,
+          answer: miss,
+          options: buildOptions(miss, { min: 0, max: 12 }),
+          explain: `${a} + ${miss} = ${c}. Artinya ${c} &minus; ${a} = ${miss}.`
+        };
+      }
+      // Level 3: sampai 20 + bentuk pengurangan
+      if (Math.random() < 0.5) {
+        const a = randInt(5, 10);
+        const miss = randInt(2, 10);
+        const c = a + miss; // sampai 20
+        return {
+          questionText: "Berapa angka di kotak?",
+          visualHTML: `<div class="hands-row">${numChip(a, "big")}<span class="plus-sign">+</span>${addHandSingle(Math.min(miss, 5), true, true)}<span class="total-badge">total ${c}</span></div>`,
+          equationHTML: eqHTML(`${numChip(a)} <span class="eq-op">+</span> ${qBox()} <span class="eq-op">=</span> ${numChip(c)}`),
+          hint: `Lengkapi ${a} sampai 10, lalu lanjut sampai ${c}.`,
+          answer: miss,
+          options: buildOptions(miss, { min: 1, max: 14 }),
+          explain: `${a} + ${miss} = ${c}. Artinya ${c} &minus; ${a} = ${miss}.`
+        };
+      }
+      const a = randInt(6, 10);
+      const miss = randInt(1, a - 1);
+      const c = a - miss;
+      return {
+        questionText: "Berapa angka di kotak?",
+        visualHTML: `<div class="hands-row">${numChip(a, "big")}<span class="plus-sign minus">&minus;</span>${addHandSingle(Math.min(miss, 5), true, true)}<span class="total-badge">hasil ${c}</span></div>`,
+        equationHTML: eqHTML(`${numChip(a)} <span class="eq-op">&minus;</span> ${qBox()} <span class="eq-op">=</span> ${numChip(c)}`),
+        hint: `${a} dikurangi berapa jadi ${c}?`,
+        answer: miss,
+        options: buildOptions(miss, { min: 1, max: 10 }),
+        explain: `${a} &minus; ${miss} = ${c}. Artinya ${a} &minus; ${c} = ${miss}.`
+      };
+    }
+  }
+};
+
+/* Satu tangan kecil untuk dipakai di dalam hands-row.
+   secret = tangan misteri (semua jari kelabu + tanda tanya) */
+function addHandSingle(up, mirror, secret) {
+  if (secret) {
+    return `<span class="secret-wrap">${handSVG(0, { face: false, mirror, folded: [0, 1, 2, 3, 4] })}<span class="secret-q">?</span></span>`;
+  }
+  return handSVG(Math.max(0, Math.min(5, up)), { mirror: !!mirror });
+}
+
+/* Daftar mode untuk UI */
+const MODE_LIST = ["hitung", "jumlah", "kali", "aljabar"];
+
+</script>
+  <script>
+/* =========================================================
+   JARI CERDAS - Koneksi ke Google Sheets (via Apps Script)
+   ---------------------------------------------------------
+   Database memakai Google Spreadsheet yang dihubungkan
+   lewat Google Apps Script Web App (lihat apps-script/Code.gs
+   dan README.md untuk cara settingnya).
+
+   - Simpan skor  : POST JSON (content-type text/plain agar
+                    tidak memicu CORS preflight)
+   - Leaderboard  : GET ?action=leaderboard
+   Jika URL belum diisi / offline, semua data disimpan di
+   perangkat (localStorage) dan dikirim saat online kembali.
+   ========================================================= */
+
+"use strict";
+
+const Sheets = {
+  QUEUE_KEY: "pendingScores",
+
+  get configured() {
+    const url = window.CONFIG.APPS_SCRIPT_URL;
+    return typeof url === "string" && url.indexOf("https://script.google.com/") === 0;
+  },
+
+  /* ---------- Simpan skor ---------- */
+  async saveScore(record) {
+    // 1) Selalu simpan riwayat lokal
+    const local = Store.get("localScores", []);
+    local.push(Object.assign({ waktu: new Date().toISOString() }, record));
+    while (local.length > 100) local.shift();
+    Store.set("localScores", local);
+
+    // 2) Jika belum dikonfigurasi, antrekan untuk sinkron nanti
+    if (!this.configured) {
+      this.enqueue(record);
+      return { ok: false, reason: "not-configured" };
+    }
+
+    // 3) Coba kirim langsung + flush antrean lama
+    const sent = await this.post({ action: "save", data: record });
+    if (sent.ok) {
+      await this.flushQueue();
+      return { ok: true };
+    }
+    this.enqueue(record);
+    return { ok: false, reason: sent.reason || "network" };
+  },
+
+  enqueue(record) {
+    const q = Store.get(this.QUEUE_KEY, []);
+    q.push(record);
+    while (q.length > 200) q.shift();
+    Store.set(this.QUEUE_KEY, q);
+  },
+
+  async flushQueue() {
+    if (!this.configured) return;
+    const q = Store.get(this.QUEUE_KEY, []);
+    if (!q.length) return;
+    const sisa = [];
+    for (const item of q) {
+      const r = await this.post({ action: "save", data: item });
+      if (!r.ok) sisa.push(item);
+    }
+    Store.set(this.QUEUE_KEY, sisa);
+  },
+
+  async post(payload) {
+    try {
+      const res = await fetch(window.CONFIG.APPS_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+        redirect: "follow"
+      });
+      const json = await res.json().catch(() => null);
+      if (json && json.ok) return { ok: true };
+      return { ok: false, reason: "response" };
+    } catch (e) {
+      return { ok: false, reason: "network" };
+    }
+  },
+
+  /* ---------- Leaderboard ---------- */
+  async leaderboard(limit) {
+    limit = limit || 20;
+    if (this.configured) {
+      try {
+        const url = window.CONFIG.APPS_SCRIPT_URL +
+          "?action=leaderboard&limit=" + limit +
+          "&t=" + Date.now();
+        const res = await fetch(url, { redirect: "follow" });
+        const json = await res.json();
+        if (json && json.ok && Array.isArray(json.rows)) {
+          Store.set("lastBoard", { rows: json.rows, waktu: Date.now() });
+          return { ok: true, rows: json.rows, source: "sheets" };
+        }
+      } catch (e) { /* lanjut ke data lokal */ }
+    }
+    return { ok: false, rows: this.localLeaderboard(limit), source: "local" };
+  },
+
+  /* Peringkat dari data perangkat (mode offline / preview) */
+  localLeaderboard(limit) {
+    const all = Store.get("localScores", []);
+    const best = {};
+    for (const r of all) {
+      const key = r.nama || "Anak Hebat";
+      if (!best[key] || (r.skor || 0) > (best[key].skor || 0)) {
+        best[key] = r;
+      }
+    }
+    return Object.values(best)
+      .sort((a, b) => (b.skor || 0) - (a.skor || 0))
+      .slice(0, limit);
+  },
+
+  /* Cek koneksi ke Apps Script (dipakai tombol "Tes Koneksi") */
+  async ping() {
+    if (!this.configured) return { ok: false, reason: "not-configured" };
+    try {
+      const res = await fetch(window.CONFIG.APPS_SCRIPT_URL + "?action=ping&t=" + Date.now(), { redirect: "follow" });
+      const json = await res.json();
+      return { ok: !!(json && json.ok), reason: json && json.ok ? null : "response" };
+    } catch (e) {
+      return { ok: false, reason: "network" };
+    }
+  }
+};
+
+</script>
+  <script>
+/* =========================================================
+   JARI CERDAS - Mesin permainan (sesi, soal, skor, bintang)
+   ========================================================= */
+
+"use strict";
+
+/* Lencana pencapaian */
+const BADGES = [
+  { id: "first",      name: "Langkah Pertama",  desc: "Selesaikan sesi permainan pertamamu" },
+  { id: "star_hitung",  name: "Penghitung Jago",  desc: "Raih 3 bintang di Hitung Jari" },
+  { id: "star_jumlah",  name: "Jago Jumlah",      desc: "Raih 3 bintang di Jumlah Cepat" },
+  { id: "star_kali",    name: "Tuan Sembilan",    desc: "Raih 3 bintang di Trik Jari kali 9" },
+  { id: "star_aljabar", name: "Detektif Angka",   desc: "Raih 3 bintang di Aljabar Jari" },
+  { id: "streak10",   name: "Api Semangat",     desc: "Jawab benar 10 kali berturut-turut" },
+  { id: "stars15",    name: "Kolektor Bintang", desc: "Kumpulkan total 15 bintang" },
+  { id: "level3",     name: "Penakluk Level",   desc: "Tamatkan level 3 di mode apa pun" }
+];
+
+const Game = {
+  modeId: null,
+  mode: null,
+  level: 1,
+  qIndex: 0,
+  total: 10,
+  score: 0,
+  streak: 0,
+  bestStreak: 0,
+  correct: 0,
+  current: null,
+  timerId: null,
+  timeLeft: 0,
+  timeTotal: 0,
+
+  get progress() { return Store.get("progress", {}); },
+
+  unlockedLevel(modeId) {
+    const p = this.progress[modeId];
+    return p ? Math.min(3, p.unlocked || 1) : 1;
+  },
+
+  /* ---------- Mulai sesi ---------- */
+  start(modeId, level) {
+    this.modeId = modeId;
+    this.mode = MODES[modeId];
+    this.level = Math.max(1, Math.min(3, level || this.unlockedLevel(modeId)));
+    this.qIndex = 0;
+    this.total = window.CONFIG.QUESTIONS_PER_SESSION;
+    this.score = 0;
+    this.streak = 0;
+    this.bestStreak = 0;
+    this.correct = 0;
+    App.showScreen("game");
+    $("#game-topbar").style.setProperty("--mode-color", this.mode.color);
+    document.documentElement.style.setProperty("--mode-color", this.mode.color);
+    $("#mode-label").textContent = this.mode.name + " · Lv " + this.level;
+    this.nextQuestion();
+  },
+
+  /* ---------- Muat soal berikutnya ---------- */
+  nextQuestion() {
+    this.qIndex++;
+    if (this.qIndex > this.total) return this.endSession();
+    this.current = this.mode.make(this.level, this.qIndex);
+    this.renderHUD();
+    this.renderQuestion();
+    this.startTimer();
+  },
+
+  renderHUD() {
+    $("#hud-score").textContent = this.score;
+    $("#hud-streak").textContent = "x" + this.streak;
+    $("#hud-qcount").textContent = "Soal " + this.qIndex + "/" + this.total + " · " + this.mode.levels[this.level - 1];
+    const combo = $("#hud-combo");
+    if (this.streak >= 3) { combo.textContent = "Combo!"; show(combo); }
+    else hide(combo);
+  },
+
+  renderQuestion() {
+    const q = this.current;
+    $("#question-visual").innerHTML = q.visualHTML;
+    $("#question-equation").innerHTML = q.equationHTML;
+    $("#question-text").textContent = q.questionText;
+    $("#question-hint").textContent = q.hint || "";
+
+    const wrap = $("#options");
+    wrap.innerHTML = "";
+    q.options.forEach((val) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = val;
+      btn.setAttribute("aria-label", "jawaban " + val);
+      btn.addEventListener("click", () => this.answer(val, btn));
+      wrap.appendChild(btn);
+    });
+  },
+
+  /* ---------- Timer ---------- */
+  startTimer() {
+    this.stopTimer();
+    this.timeTotal = (window.CONFIG.TIME_PER_LEVEL[this.modeId] || [20, 20, 20])[this.level - 1] || 20;
+    this.timeLeft = this.timeTotal;
+    this.paintTimer();
+    const t0 = Date.now();
+    this.timerId = setInterval(() => {
+      this.timeLeft = Math.max(0, this.timeTotal - (Date.now() - t0) / 1000);
+      this.paintTimer();
+      if (this.timeLeft <= 0) { this.stopTimer(); this.answer(null, null, true); }
+    }, 100);
+  },
+  stopTimer() {
+    if (this.timerId) { clearInterval(this.timerId); this.timerId = null; }
+  },
+  paintTimer() {
+    const fill = $("#timer-fill");
+    const pct = (this.timeLeft / this.timeTotal) * 100;
+    fill.style.width = pct + "%";
+    fill.classList.toggle("low", pct < 30);
+  },
+
+  /* ---------- Jawab ---------- */
+  answer(val, btnEl, timeout) {
+    if (!this.current) return;
+    this.stopTimer();
+    const q = this.current;
+    const buttons = $$("#options .option-btn");
+    buttons.forEach(b => b.disabled = true);
+
+    const right = val === q.answer;
+    const overlay = $("#feedback");
+    const card = $("#feedback-card");
+
+    if (right) {
+      const speed = this.timeLeft / this.timeTotal;
+      const bonus = Math.round(speed * 10);
+      const mult = this.streak >= 3 ? 1.5 : 1;
+      const gained = Math.round((10 + bonus) * mult);
+      this.score += gained;
+      this.streak++;
+      this.bestStreak = Math.max(this.bestStreak, this.streak);
+      this.correct++;
+      if (btnEl) btnEl.classList.add("correct");
+      Sound.correct();
+      Confetti.burst(60);
+      card.className = "feedback-card ok";
+      card.innerHTML = `
+        <div class="feedback-title">Hebat! +${gained}${this.streak >= 3 ? " (combo x" + this.streak + ")" : ""}</div>
+        <div class="feedback-body">${q.explain}</div>`;
+      show(overlay);
+      this.renderHUD();
+    } else {
+      this.streak = 0;
+      buttons.forEach(b => {
+        if (Number(b.textContent) === q.answer) b.classList.add("correct");
+      });
+      if (btnEl) btnEl.classList.add("wrong");
+      Sound.wrong();
+      card.className = "feedback-card no";
+      card.innerHTML = `
+        <div class="feedback-title">${timeout ? "Waktu habis!" : "Belum tepat"}</div>
+        <div class="feedback-body">Jawaban: <b>${q.answer}</b>. ${q.explain}</div>`;
+      show(overlay);
+      this.renderHUD();
+    }
+
+    setTimeout(() => {
+      hide(overlay);
+      card.className = "feedback-card";
+      this.current = null;
+      this.nextQuestion();
+    }, right ? 1500 : 2200);
+  },
+
+  /* ---------- Akhir sesi ---------- */
+  endSession() {
+    this.stopTimer();
+    const ratio = this.correct / this.total;
+    const stars = ratio >= 0.9 ? 3 : ratio >= 0.7 ? 2 : ratio >= 0.5 ? 1 : 0;
+
+    // Perbarui progres & buka level baru
+    const prog = this.progress;
+    const p = prog[this.modeId] || { unlocked: 1, bestStars: 0, bestScore: 0, played: 0 };
+    p.played = (p.played || 0) + 1;
+    let levelUp = false;
+    if (this.correct >= Math.ceil(this.total * 0.8) && this.level < 3) {
+      if (p.unlocked < this.level + 1) { p.unlocked = this.level + 1; levelUp = true; }
+    }
+    p.bestStars = Math.max(p.bestStars || 0, stars);
+    p.bestScore = Math.max(p.bestScore || 0, this.score);
+    p.unlocked = Math.max(p.unlocked || 1, 1);
+    prog[this.modeId] = p;
+    Store.set("progress", prog);
+
+    // Lencana baru
+    const earned = Store.get("badges", []);
+    const addBadge = (id) => { if (earned.indexOf(id) === -1) earned.push(id); };
+    addBadge("first");
+    if (stars === 3) addBadge("star_" + this.modeId);
+    if (this.bestStreak >= 10) addBadge("streak10");
+    if (this.level === 3 && stars >= 2) addBadge("level3");
+    const totalStars = Object.keys(prog).reduce((s, k) => s + (prog[k].bestStars || 0), 0);
+    if (totalStars >= 15) addBadge("stars15");
+    const before = Store.get("badges", []);
+    Store.set("badges", earned);
+    const newBadges = earned.filter(id => before.indexOf(id) === -1);
+
+    // Simpan skor (lokal + Google Sheets)
+    const profile = Store.get("profile", { nama: "", kelas: "" });
+    const record = {
+      nama: profile.nama || "Anak Hebat",
+      kelas: profile.kelas || "-",
+      mode: this.modeId,
+      modeName: this.mode.name,
+      level: this.level,
+      skor: this.score,
+      benar: this.correct,
+      totalSoal: this.total,
+      streak: this.bestStreak,
+      waktuISO: new Date().toISOString()
+    };
+    Sheets.saveScore(record).then((res) => {
+      const el = $("#result-sync");
+      if (!el) return;
+      if (res.ok) {
+        el.textContent = "Skor tersimpan di Google Sheets.";
+      } else if (res.reason === "not-configured") {
+        el.textContent = "Skor tersimpan di perangkat ini. Hubungkan Google Sheets untuk papan skor kelas.";
+      } else {
+        el.textContent = "Belum online - skor disimpan di perangkat dan otomatis dikirim saat online.";
+      }
+    });
+
+    this.renderResult(stars, levelUp, newBadges);
+    if (levelUp) Sound.levelup();
+  },
+
+  renderResult(stars, levelUp, newBadges) {
+    App.showScreen("result");
+    $("#result-mode").textContent = this.mode.name + " · " + this.mode.levels[this.level - 1];
+    $("#result-score").textContent = this.score;
+    $("#result-correct").textContent = this.correct + "/" + this.total;
+    $("#result-streak").textContent = "x" + this.bestStreak;
+
+    const starWrap = $("#result-stars");
+    starWrap.innerHTML = "";
+    for (let i = 0; i < 3; i++) {
+      const span = document.createElement("span");
+      span.className = "star-pop";
+      span.style.animationDelay = (0.15 + i * 0.25) + "s";
+      span.innerHTML = starSVG(i < stars, 56);
+      starWrap.appendChild(span);
+    }
+    if (stars > 0) Sound.star();
+
+    const note = $("#result-note");
+    if (levelUp) note.textContent = "Keren! Level " + (this.level + 1) + " terbuka!";
+    else if (stars === 3) note.textContent = "Sempurna! Kamu juara kecil sejati!";
+    else if (stars === 2) note.textContent = "Bagus! Sedikit lagi jadi sempurna!";
+    else if (stars === 1) note.textContent = "Terus semangat, kamu pasti bisa!";
+    else note.textContent = "Jangan menyerah, coba lagi ya!";
+
+    const badgeWrap = $("#result-badges");
+    badgeWrap.innerHTML = "";
+    if (newBadges.length) {
+      BADGES.filter(b => newBadges.indexOf(b.id) !== -1).forEach(b => {
+        const chip = document.createElement("div");
+        chip.className = "badge-chip new";
+        chip.innerHTML = `<span class="badge-ico">${trophySVG()}</span><span><b>${b.name}</b><br>${b.desc}</span>`;
+        badgeWrap.appendChild(chip);
+      });
+    } else {
+      badgeWrap.innerHTML = `<div class="badge-hint">Kumpulkan bintang untuk membuka lencana!</div>`;
+    }
+
+    // Konfetti besar untuk hasil bagus
+    if (stars >= 2) Confetti.burst(140);
+  },
+
+  quit() {
+    this.stopTimer();
+    this.current = null;
+    App.showScreen("home");
+  }
+};
+
+/* Ikon piala kecil untuk lencana */
+function trophySVG(size = 26) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M7 4h10v2h3v3c0 2.5-2 4.5-4.5 4.9A5.5 5.5 0 0 1 13 17.9V19h3v2H8v-2h3v-1.1a5.5 5.5 0 0 1-2.5-3A4.9 4.9 0 0 1 4 9V6h3V4zm-1 4v1c0 1.2.8 2.3 2 2.7V8H6zm12 0h-2v3.7c1.2-.4 2-1.5 2-2.7V8z" fill="#FFC93C"/>
+  </svg>`;
+}
+
+</script>
+  <script>
+/* =========================================================
+   JARI CERDAS - Antarmuka utama (layar, menu, leaderboard)
+   ========================================================= */
+
+"use strict";
+
+const App = {
+  deferredInstall: null,
+
+  /* ---------- Navigasi layar ---------- */
+  showScreen(name) {
+    $$(".screen").forEach(s => s.classList.remove("active"));
+    const el = $("#screen-" + name);
+    if (el) el.classList.add("active");
+    window.scrollTo(0, 0);
+    if (name === "board") this.renderBoard();
+  },
+
+  /* ---------- Inisialisasi ---------- */
+  init() {
+    // Maskot & judul
+    $("#home-mascot").innerHTML = mascotSVG();
+    $("#home-title").textContent = window.CONFIG.APP_NAME;
+    $("#home-tagline").textContent = window.CONFIG.APP_TAGLINE;
+
+    // Kartu mode
+    const grid = $("#mode-grid");
+    grid.innerHTML = "";
+    MODE_LIST.forEach(id => grid.appendChild(this.buildModeCard(id)));
+
+    // Profil
+    this.renderProfileChip();
+    this.renderSyncChip();
+
+    // Suara
+    this.updateSoundIcon();
+    $("#btn-sound").addEventListener("click", () => {
+      const muted = Sound.toggle();
+      this.updateSoundIcon();
+      if (!muted) Sound.click();
+    });
+
+    // Tombol-tombol
+    $("#btn-profile").addEventListener("click", () => this.openProfile());
+    $("#btn-learn").addEventListener("click", () => { Sound.click(); this.showScreen("learn"); });
+    $("#btn-board-home").addEventListener("click", () => { Sound.click(); this.showScreen("board"); });
+    $("#btn-back-home-2").addEventListener("click", () => { Sound.click(); this.showScreen("home"); });
+    $("#btn-back-home-3").addEventListener("click", () => { Sound.click(); this.showScreen("home"); });
+    $("#btn-quit-game").addEventListener("click", () => { Sound.click(); Game.quit(); });
+    $("#btn-play-again").addEventListener("click", () => { Sound.click(); Game.start(Game.modeId, Game.level); });
+    $("#btn-result-home").addEventListener("click", () => { Sound.click(); this.showScreen("home"); });
+    $("#btn-board-refresh").addEventListener("click", () => { Sound.click(); this.renderBoard(true); });
+    $("#btn-flush").addEventListener("click", async () => {
+      Sound.click();
+      if (!Sheets.configured) return toast("Isi URL Apps Script di js/config.js dulu ya.");
+      toast("Mengirim data tertunda...");
+      await Sheets.flushQueue();
+      toast("Sinkronisasi selesai!");
+      this.renderBoard(true);
+    });
+
+    // Modal profil
+    $("#btn-profile-close").addEventListener("click", () => hide($("#modal-profile")));
+    $("#btn-profile-save").addEventListener("click", () => this.saveProfile());
+    $("#btn-test-conn").addEventListener("click", async () => {
+      const st = $("#conn-status");
+      st.textContent = "Menguji koneksi...";
+      const r = await Sheets.ping();
+      st.textContent = r.ok
+        ? "Terhubung ke Google Sheets! ( spreadsheet respons OK )"
+        : (r.reason === "not-configured"
+          ? "Belum dikonfigurasi - isi APPS_SCRIPT_URL di js/config.js (lihat README.md)."
+          : "Gagal terhubung. Pastikan deployment Apps Script 'Anyone' dan URL benar.");
+    });
+
+    // Demo interaktif trik x9 di layar Belajar
+    this.initNineDemo();
+
+    // Ilustrasi statis di layar Belajar
+    $("#learn-count-visual").innerHTML = mascotSVG();
+    $("#learn-add-visual").innerHTML = addHandsSVG(4, 3);
+    $("#learn-alg-visual").innerHTML =
+      `<div class="hands-row">${addHandSingle(4)}<span class="plus-sign">+</span>${addHandSingle(5, true, true)}<span class="total-badge">total 9</span></div>`;
+
+    // Pasang PWA
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      this.deferredInstall = e;
+      show($("#btn-install"));
+    });
+    $("#btn-install").addEventListener("click", async () => {
+      if (!this.deferredInstall) return;
+      this.deferredInstall.prompt();
+      await this.deferredInstall.userChoice;
+      this.deferredInstall = null;
+      hide($("#btn-install"));
+    });
+
+    // Sinkron ulang saat online kembali
+    window.addEventListener("online", () => Sheets.flushQueue());
+
+    // Confetti & layar awal
+    Confetti.init();
+    this.showScreen("home");
+
+    // Service worker (untuk mode offline saat dipasang)
+    if ("serviceWorker" in navigator) {
+      try { navigator.serviceWorker.register("./sw.js").catch(() => {}); } catch (e) {}
+    }
+  },
+
+  /* ---------- Kartu mode di beranda ---------- */
+  buildModeCard(modeId) {
+    const m = MODES[modeId];
+    const unlocked = Game.unlockedLevel(modeId);
+    const best = Game.progress[modeId] || { bestStars: 0, bestScore: 0 };
+
+    const card = document.createElement("div");
+    card.className = "mode-card";
+    card.style.setProperty("--mode-color", m.color);
+
+    const pills = [1, 2, 3].map(lv => {
+      const open = lv <= unlocked;
+      return `<button class="level-pill ${open ? "open" : "locked"}" data-mode="${modeId}" data-lv="${lv}" ${open ? "" : "disabled"}
+        aria-label="Level ${lv}${open ? "" : " terkunci"}">
+        ${open ? lv : lockSVG(14)}
+      </button>`;
+    }).join("");
+
+    const starsMini = [1, 2, 3].map(i => starSVG(i <= (best.bestStars || 0), 18)).join("");
+
+    card.innerHTML = `
+      <div class="mode-ico">${MODE_ICONS[modeId]}</div>
+      <div class="mode-info">
+        <div class="mode-name">${m.name} <span class="mode-aud">${m.audience}</span></div>
+        <div class="mode-desc">${m.desc}</div>
+        <div class="mode-stars">${starsMini}<span class="mode-best">Rekor ${best.bestScore || 0}</span></div>
+        <div class="level-pills">${pills}</div>
+      </div>`;
+
+    card.querySelectorAll(".level-pill.open").forEach(btn => {
+      btn.addEventListener("click", () => {
+        Sound.click();
+        Game.start(btn.dataset.mode, Number(btn.dataset.lv));
+      });
+    });
+    return card;
+  },
+
+  refreshModeCards() {
+    const grid = $("#mode-grid");
+    grid.innerHTML = "";
+    MODE_LIST.forEach(id => grid.appendChild(this.buildModeCard(id)));
+  },
+
+  /* ---------- Profil ---------- */
+  renderProfileChip() {
+    const p = Store.get("profile", { nama: "", kelas: "" });
+    $("#profile-name").textContent = p.nama || "Isi nama dulu";
+    $("#profile-class").textContent = p.kelas || "TK/SD";
+    $("#input-nama").value = p.nama || "";
+    $("#input-kelas").value = p.kelas || "";
+  },
+  openProfile() {
+    Sound.click();
+    this.renderProfileChip();
+    this.renderSyncChip();
+    show($("#modal-profile"));
+  },
+  saveProfile() {
+    const nama = $("#input-nama").value.trim().slice(0, 24);
+    const kelas = $("#input-kelas").value;
+    Store.set("profile", { nama, kelas });
+    this.renderProfileChip();
+    hide($("#modal-profile"));
+    Sound.correct();
+    toast(nama ? "Hai, " + nama + "! Profil disimpan." : "Profil disimpan.");
+  },
+  renderSyncChip() {
+    const chip = $("#sync-chip");
+    if (Sheets.configured) {
+      chip.textContent = "Google Sheets: terhubung";
+      chip.className = "sync-chip ok";
+    } else {
+      chip.textContent = "Mode perangkat: skor disimpan lokal";
+      chip.className = "sync-chip warn";
+    }
+  },
+
+  updateSoundIcon() {
+    $("#btn-sound").innerHTML = Sound.muted ? soundOffSVG() : soundOnSVG();
+    $("#btn-sound").setAttribute("aria-label", Sound.muted ? "Nyalakan suara" : "Matikan suara");
+  },
+
+  /* ---------- Layar Belajar: demo trik x9 ---------- */
+  initNineDemo() {
+    const wrap = $("#nine-demo");
+    let sel = 4;
+    const render = () => {
+      const hasil = 9 * sel;
+      wrap.innerHTML = `
+        <div class="nine-chooser">${[1,2,3,4,5,6,7,8,9,10].map(n =>
+          `<button class="nine-btn ${n === sel ? "sel" : ""}" data-n="${n}">${n}</button>`).join("")}
+        </div>
+        ${nineFingersSVG(sel)}
+        <p class="nine-explain">Tekuk jari ke-<b>${sel}</b>. Kiri tinggal <b>${sel - 1}</b> jari (= ${sel - 1} puluhan),
+        kanan tinggal <b>${10 - sel}</b> jari (= ${10 - sel} satuan) &rarr; 9 &times; ${sel} = <b>${hasil}</b>.</p>`;
+      wrap.querySelectorAll(".nine-btn").forEach(b =>
+        b.addEventListener("click", () => { sel = Number(b.dataset.n); Sound.click(); render(); }));
+    };
+    render();
+  },
+
+  /* ---------- Papan skor ---------- */
+  async renderBoard(force) {
+    const listEl = $("#board-list");
+    const statusEl = $("#board-status");
+    listEl.innerHTML = `<div class="board-loading">Memuat papan skor...</div>`;
+    if (force && Sheets.configured) await Sheets.flushQueue();
+
+    const res = await Sheets.leaderboard(20);
+    if (res.source === "sheets") {
+      statusEl.textContent = "Data langsung dari Google Sheets.";
+      statusEl.className = "board-status ok";
+    } else if (Sheets.configured) {
+      statusEl.textContent = "Tidak bisa menghubungi Google Sheets - ini data perangkat ini.";
+      statusEl.className = "board-status warn";
+    } else {
+      statusEl.textContent = "Google Sheets belum dihubungkan - ini peringkat lokal perangkat ini.";
+      statusEl.className = "board-status warn";
+    }
+
+    const rows = res.rows || [];
+    if (!rows.length) {
+      listEl.innerHTML = `<div class="board-loading">Belum ada skor. Mainkan dulu satu sesi, ya!</div>`;
+      return;
+    }
+    const medal = ["#FFC93C", "#C9CDD4", "#E8A16B"];
+    listEl.innerHTML = rows.map((r, i) => `
+      <div class="board-row ${i < 3 ? "podium" : ""}">
+        <span class="board-rank" style="${i < 3 ? "background:" + medal[i] : ""}">${i + 1}</span>
+        <span class="board-name">${escapeHTML(r.nama || "Anak Hebat")}<small>${escapeHTML(r.kelas && r.kelas !== "-" ? r.kelas : "")} · ${escapeHTML(modeShort(r.mode))} Lv ${r.level ?? "-"}</small></span>
+        <span class="board-score">${r.skor ?? 0}<small>skor</small></span>
+      </div>`).join("");
+
+    const pending = Store.get(Sheets.QUEUE_KEY, []);
+    const flushRow = $("#board-flush");
+    if (pending.length && Sheets.configured) {
+      flushRow.textContent = pending.length + " skor menunggu dikirim. Tekan tombol sinkron di atas.";
+      show(flushRow);
+    } else hide(flushRow);
+  }
+};
+
+function modeShort(modeId) {
+  return MODES[modeId] ? MODES[modeId].name : modeId || "-";
+}
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function lockSVG(size = 16) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="3" fill="#B9AFA4"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#B9AFA4" stroke-width="2.6"/></svg>`;
+}
+function soundOnSVG() {
+  return `<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="#7A5A3A"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="#7A5A3A" stroke-width="2" stroke-linecap="round"/></svg>`;
+}
+function soundOffSVG() {
+  return `<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="#B9AFA4"/><path d="M16 9l6 6M22 9l-6 6" fill="none" stroke="#B9AFA4" stroke-width="2.4" stroke-linecap="round"/></svg>`;
+}
+
+/* Jalankan aplikasi */
+document.addEventListener("DOMContentLoaded", () => App.init());
+
+</script>
 </body>
 </html>
