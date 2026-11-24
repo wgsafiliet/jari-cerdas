@@ -271,6 +271,9 @@ nav.bot button.aktif .ic{transform:scale(1.15);transition:transform .2s}
 .step-dots .d{width:10px;height:10px;border-radius:50%;background:var(--line-2)}
 .step-dots .d.on{background:var(--sun);transform:scale(1.2)}
 </style>
+<link rel="me" href="https://www.blogger.com/profile/03825852866028956340" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
 </head>
 <body>
 <div id="app"></div>
@@ -1414,6 +1417,179 @@ function setJenjang(l,el){S.lvlIdx=l;simpan();document.querySelectorAll('.lvl-ca
 function ganti(){if(confirm('Ganti pemain?')){Snd.stopMusic();localStorage.removeItem('jariajaib');S=null;masuk()}}
 
 /* ===================== START ===================== */
+  /* JARIAJAIB PATCH v2: tangan realistis + 3 game baru (Beri Makan Hewan, Teman Sepuluh, Kereta Jari) */
+
+/* ---------- CSS tambahan ---------- */
+(function(){
+  const st=document.createElement('style');
+  st.textContent=`
+  .fg .bd{stroke:none}
+  .fg.g0 .bd{fill:#FF9DB3!important}.fg.g1 .bd{fill:#A8DCF5!important}.fg.g2 .bd{fill:#A8E8D0!important}
+  .fg.g3 .bd{fill:#FFD980!important}.fg.g4 .bd{fill:#D6C0F5!important}
+  .fg{cursor:pointer}
+  .hands.pulse .handsvg{animation:handPulse 1.6s ease-in-out infinite}
+  @keyframes handPulse{50%{transform:scale(1.03)}}
+  .hero-an{font-size:4.2rem;text-align:center;line-height:1;margin:4px 0;animation:bounce 1.8s ease-in-out infinite}
+  .gt-makan{background:linear-gradient(135deg,#9BD66A,#FFC93C)}
+  .gt-teman{background:linear-gradient(135deg,#B084F0,#74C7EC)}
+  .gt-kereta{background:linear-gradient(135deg,#FF7A6B,#FF9DB3)}
+  `;
+  document.head.appendChild(st);
+})();
+
+/* ---------- JARI & TANGAN REALISTIS ---------- */
+function fingerGroup(i,x,baseY,w,len,isThumb,idS,rot){
+  rot=rot||0;
+  const tipY=baseY-len,st=HS[i]||'down',r=w/2;
+  const showNum=HCX.labels===true||(HCX.labels!==false&&S.bantuHitung);
+  const gc=(HCX.groups&&HCX.groups[i]!=null)?' g'+HCX.groups[i]:'';
+  const hl=st==='hl'?' hl':'';
+  const oc=HCX.interactive?` onclick="togFinger(${i})"`:'';
+  const tr=`transform="rotate(${rot} ${x} ${baseY})"`;
+  if(st==='down'){
+    const bh=w*.5;
+    return `<g class="fg${hl} down${gc}" ${tr}${oc}>
+      <ellipse class="seg" cx="${x}" cy="${baseY-2}" rx="${w*.56}" ry="${bh}" fill="url(#skinGrad${idS})" stroke="#B97B47" stroke-width="1.6"/>
+      <path d="M ${x-w*.3} ${baseY-bh*.45} Q ${x} ${baseY-bh*1.0} ${x+w*.3} ${baseY-bh*.45}" stroke="rgba(185,123,71,.55)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <rect x="${x-w*.9}" y="${baseY-bh-10}" width="${w*1.8}" height="${bh*2+20}" fill="transparent"/></g>`;
+  }
+  const d=`M ${x-r} ${baseY+6} L ${x-r} ${tipY+r} A ${r} ${r} 0 0 1 ${x+r} ${tipY+r} L ${x+r} ${baseY+6} Z`;
+  const side=`M ${x-r} ${baseY} L ${x-r} ${tipY+r} A ${r} ${r} 0 0 1 ${x+r} ${tipY+r} L ${x+r} ${baseY}`;
+  const cr=(f)=>{const y=baseY-len*f;return `<path d="M ${x-r*.6} ${y} Q ${x} ${y+2.5} ${x+r*.6} ${y}" stroke="rgba(185,123,71,.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>`};
+  const creases=isThumb?cr(.5):cr(.36)+cr(.66);
+  const lbl=showNum?`<text class="fl" x="${x}" y="${tipY-7}" text-anchor="middle" transform="rotate(${-rot} ${x} ${tipY-7})">${i+1}</text>`:'';
+  return `<g class="fg${hl}${gc}" ${tr}${oc}>
+    <ellipse class="glow" cx="${x}" cy="${baseY-len*.5}" rx="${w*1.2}" ry="${len*.62}" fill="rgba(255,201,60,.65)"/>
+    <path class="bd" d="${d}" fill="url(#skinGrad${idS})"/>
+    <path d="${side}" fill="none" stroke="#B97B47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M ${x-r*.5} ${baseY-6} L ${x-r*.5} ${tipY+w*.95}" stroke="rgba(255,255,255,.5)" stroke-width="${w*.15}" stroke-linecap="round"/>
+    ${creases}
+    <rect x="${x-w*.3}" y="${tipY+w*.2}" width="${w*.6}" height="${w*.58}" rx="${w*.27}" fill="#FFE6E0" stroke="rgba(185,123,71,.55)" stroke-width="1"/>
+    <ellipse cx="${x-w*.1}" cy="${tipY+w*.36}" rx="${w*.1}" ry="${w*.06}" fill="rgba(255,255,255,.85)"/>
+    ${lbl}
+    <rect x="${x-w*.8}" y="${tipY-4}" width="${w*1.6}" height="${len+8}" fill="transparent"/></g>`;
+}
+function handSVG(s0,thumbLeft,idS){
+  idS=idS||'';const baseY=125;
+  const xs=thumbLeft?[38,64,90,116]:[56,82,108,134];
+  const idx=thumbLeft?[s0+4,s0+3,s0+2,s0+1]:[s0+1,s0+2,s0+3,s0+4];
+  const sp=thumbLeft?[[19,64],[21,80],[22,90],[21,80]]:[[21,80],[22,90],[21,80],[19,64]];
+  const rots=[-9,-3,3,9];
+  let f='';
+  for(let k=0;k<4;k++)f+=fingerGroup(idx[k],xs[k],baseY,sp[k][0],sp[k][1],false,idS,rots[k]);
+  const pl=thumbLeft?22:40,pw=thumbLeft?114:110;
+  const tx=thumbLeft?112:52,ty=baseY+44,trot=thumbLeft?38:-38;
+  const palm=`<rect x="${pl}" y="${baseY-4}" width="${pw}" height="70" rx="28" ry="26" fill="url(#palmGrad${idS})" stroke="#B97B47" stroke-width="2"/>
+    <rect x="${pl}" y="${baseY-4}" width="${pw}" height="70" rx="28" ry="26" fill="url(#palmShade${idS})"/>
+    <path d="M ${pl+14} ${baseY+18} Q ${pl+pw/2} ${baseY+30} ${pl+pw-14} ${baseY+16}" stroke="rgba(185,123,71,.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M ${pl+20} ${baseY+38} Q ${pl+pw/2} ${baseY+46} ${pl+pw-20} ${baseY+34}" stroke="rgba(185,123,71,.18)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="${tx}" cy="${ty-2}" rx="24" ry="24" fill="url(#palmGrad${idS})"/>`;
+  const sleeve=`<rect x="${pl+12}" y="${baseY+58}" width="${pw-24}" height="32" rx="10" fill="url(#cuffGrad${idS})" stroke="#2792C7" stroke-width="1.5"/>`;
+  return `<svg viewBox="-10 -20 190 235" class="handsvg" xmlns="http://www.w3.org/2000/svg">${svgDefs(idS)}${palm}${sleeve}${f}${fingerGroup(s0,tx,ty,24,54,true,idS,trot)}</svg>`;
+}
+function togFinger(i){
+  if((!Q&&!RG)||kunci)return;
+  HS[i]=HS[i]==='up'?'down':'up';
+  const h=$('#hands');if(h)h.innerHTML=handSVG(0,true,'L')+handSVG(5,false,'R');
+  const n=HS.filter(x=>x!=='down').length;
+  const jc=$('#jcnt');if(jc)jc.textContent='👆 '+n+' jari';
+  Snd.sfx('tap');say(String(n),{rate:1});
+}
+
+/* ---------- 3 GAME BARU ---------- */
+let RG=null;
+const HEWAN=[['🐰','🥕','wortel'],['🐻','🍯','madu'],['🐱','🐟','ikan'],['🐶','🦴','tulang'],['🐼','🎋','bambu'],['🦁','🍖','daging']];
+const RONDE={
+  makan:{ic:'🐰',nm:'Beri Makan Hewan',gen(){
+    const J=jenjangIdx(),n=rnd(1,J===0?5:10),h=HEWAN[rnd(0,HEWAN.length-1)];
+    const q=tunjukQ(n);q.t=`${h[0]} lapar! Mau ${n} ${h[2]}. Tunjukkan ${n} jari!`;
+    q.hewan=h[0];q.row=h[1].repeat(n);q.tip=`Hitung ${h[1]} satu per satu, lalu naikkan jarimu`;q.ok=`Nyam nyam! ${h[0]} kenyang, terima kasih!`;return q}},
+  teman:{ic:'🧙',nm:'Teman Sepuluh',gen(){
+    const J=jenjangIdx(),T=J===0?5:10,a=rnd(1,T-1);
+    const q=misteriAdd(a,T);q.hewan='🧙';q.ok=`Sihir berhasil! ${a} + ${T-a} = ${T}`;return q}},
+  kereta:{ic:'🚂',nm:'Kereta Jari',gen(){
+    const J=jenjangIdx(),a=rnd(1,J===0?3:6),b=rnd(1,Math.min(J===0?2:5,10-a));
+    const q=tambahQ(a,b);q.hewan='🚂';q.row='🚃'.repeat(a)+' ➕ '+'🚋'.repeat(b);q.ok=`Tut tut! Gerbong ada ${a+b}!`;return q}}
+};
+function game_ronde(id){stopAllGames();RG={id,i:0,benar:0,lv:Array.from({length:8},RONDE[id].gen)};rondeRender()}
+function rondeQ(){return RG&&RG.lv[RG.i]}
+function rondeRender(){
+  if(!RG)return;if(RG.i>=8)return rondeAkhir();
+  kunci=false;const c=RONDE[RG.id],q=rondeQ(),inter=q.vis&&q.vis.interactive;q._s=0;
+  view(`<div class="back" onclick="RG=null;beranda()">← Keluar</div>
+  <div class="card">
+    <div class="q-meta"><span class="q-tag">${c.ic} ${c.nm}</span><span style="margin-left:auto">${RG.i+1}/8</span></div>
+    <div class="star-row" style="min-height:0;font-size:1.3rem;letter-spacing:2px">${'⭐'.repeat(RG.benar)}${'☆'.repeat(8-RG.benar)}</div>
+    <div class="hero-an" id="han">${q.hewan}</div>
+    ${q.eq?`<div class="eqbig">${q.eq}</div>`:`<div class="q-text" style="text-align:center">${q.t}</div>`}
+    ${q.row?`<div class="star-row" style="font-size:1.8rem;letter-spacing:2px;line-height:1.3">${q.row}</div>`:''}
+    ${handsBlock(q.vis)}
+    <div class="cap" id="cap">${inter?'👆 Ketuk jarimu satu per satu!':'🤔 Pakai jarimu, lalu pilih jawaban!'}</div>
+    <div id="qextra" class="star-row"></div>
+    ${inter?`<button class="btn mint" onclick="rondeCek()">Beri! ✅</button>`:`<div class="opts">${q.o.map(o=>`<button class="opt" onclick="rondeJawab(${o},this)">${o}</button>`).join('')}</div>`}
+    <div class="row" style="margin-top:10px">${q.steps?`<button class="ghost" onclick="jalankanSteps(rondeQ())">🎬 Tunjukkan Caranya</button>`:''}<button class="ghost" onclick="say(lisan(rondeQ().t))">🔊 Bacakan</button></div>
+    <div id="fb"></div></div>`);
+  say(lisan(q.t));
+}
+function rondeOk(){
+  const q=rondeQ();kunci=true;stopAnim();
+  if(q._s===0)RG.benar++;
+  addMastery(q.konsep,q._s===0);S.today.benar=(S.today.benar||0)+1;
+  Snd.sfx('ok');hujan('⭐',8);getar(40);
+  const h=$('#han');if(h)h.style.animation='okPop .6s';
+  fb('ok','🎉 '+(q.ok||'Hebat!'));say(q.ok||'Hebat!');
+  const tok=RG;setTimeout(()=>{if(RG===tok){RG.i++;rondeRender()}},2000);
+}
+function rondeSalah(q){
+  q._s++;Snd.sfx('no');getar(60);
+  const h=$('#hands');if(h){h.classList.add('shake');setTimeout(()=>h.classList.remove('shake'),500)}
+  fb('no','💪 Coba lagi ya!'+(q._s>=2?' 💡 '+q.tip:''));
+  if(q._s>=2){say(q.tip);if(q.steps)setTimeout(()=>jalankanSteps(q),900)}else say('Coba lagi ya!');
+}
+function rondeCek(){
+  if(kunci||!RG)return;const q=rondeQ();
+  if(HS.filter(x=>x!=='down').length===q.a)rondeOk();else rondeSalah(q);
+}
+function rondeJawab(v,el){
+  if(kunci||!RG)return;const q=rondeQ();
+  if(String(v)===String(q.a)){if(el)el.classList.add('ok');rondeOk()}
+  else{if(el){el.classList.add('no');setTimeout(()=>el.classList.remove('no'),600)}addMastery(q.konsep,false);rondeSalah(q)}
+}
+function rondeAkhir(){
+  const id=RG.id,b=RG.benar,xp=b*8+(b===8?20:0);
+  addXP(xp);S.today.game=(S.today.game||0)+1;
+  let rek='';if(b>(S.rekor[id]||0)){S.rekor[id]=b;rek='Rekor baru! 🏆'}
+  simpan();Snd.sfx(b>=6?'win':'star');hujan('🌟',18);say(`Hebat ${S.nama}! Kamu dapat ${b} bintang!`);
+  resultScreen(b>=6?'🏆':'🌟',b+'/8 ⭐',xp,(S.rekor[id]||0)+'/8',rek,`game_ronde('${id}')`);RG=null;
+}
+
+/* ---------- DAFTAR GAME & BERANDA (diperbarui) ---------- */
+function stopAllGames(){stopBalon();stopKilat();stopKotak();stopCepat();BG=null;RG=null}
+function gameList(){renderNav('game');
+  const GAMES=[
+    {fn:"game_ronde('makan')",cls:'gt-makan',ic:'🐰',nm:'Beri Makan Hewan',d:'Hewan lapar! Tunjukkan jumlah jari sesuai makanannya',rec:'makan'},
+    {fn:"game_ronde('teman')",cls:'gt-teman',ic:'🧙',nm:'Teman Sepuluh',d:'Cari isi kotak ajaib supaya jari jadi penuh',rec:'teman'},
+    {fn:"game_ronde('kereta')",cls:'gt-kereta',ic:'🚂',nm:'Kereta Jari',d:'Gabung gerbong, hitung semuanya pakai jari',rec:'kereta'},
+    {fn:'game_cepat()',cls:'gt-cepat',ic:'🚀',nm:'Hitung Cepat',d:'60 detik, jawab secepat mungkin',rec:'cepat'},
+    {fn:'game_benteng()',cls:'gt-benteng',ic:'🏰',nm:'Benteng Jari',d:'Robohkan 8 tembok kotak misteri',rec:'benteng'},
+    {fn:'game_balon()',cls:'gt-balon',ic:'🎈',nm:'Balon Jari',d:'Pecahkan balon berjawaban benar',rec:'balon'},
+    {fn:'game_kilat()',cls:'gt-kilat',ic:'⚡',nm:'Jari Kilat',d:'Jari muncul sebentar, hitung secepat kilat!',rec:'kilat'},
+    {fn:'game_kotak()',cls:'gt-kotak',ic:'🎁',nm:'Kotak Misteri',d:'Latihan jari ajaib melawan waktu',rec:'kotak'},
+  ];
+  view(`<div class="back" onclick="beranda()">← Kembali</div>
+  <h1 style="font-size:1.5rem;padding:2px 4px 10px">🎮 Game Jari Ajaib</h1>
+  <div class="card" style="background:var(--sun-l);border-color:#FFE9A6"><p class="sub" style="color:var(--sun-d);font-weight:800;font-size:.88rem">💡 Mulai dari 🐰 Beri Makan Hewan — paling mudah untuk anak TK!</p></div>
+  ${GAMES.map(g=>`<button class="game-tile ${g.cls}" style="width:100%;min-height:96px;margin-bottom:10px" onclick="${g.fn}"><div><div class="ic">${g.ic} ${g.nm}</div><div class="meta">${g.d}</div></div><div class="meta" style="font-weight:900">🏆 Rekor: ${S.rekor[g.rec]||0}</div></button>`).join('')}`);
+}
+const _berandaAsli=beranda;
+beranda=function(){
+  _berandaAsli();
+  const g=document.querySelector('.game-grid');
+  if(g)g.insertAdjacentHTML('afterbegin',
+    `<button class="game-tile gt-makan" onclick="game_ronde('makan')"><div><div class="ic">🐰</div><div class="nm">Beri Makan Hewan</div><div class="meta">Rekor ${S.rekor.makan||0}/8</div></div></button>
+     <button class="game-tile gt-teman" onclick="game_ronde('teman')"><div><div class="ic">🧙</div><div class="nm">Teman Sepuluh</div><div class="meta">Rekor ${S.rekor.teman||0}/8</div></div></button>
+     <button class="game-tile gt-kereta" onclick="game_ronde('kereta')"><div><div class="ic">🚂</div><div class="nm">Kereta Jari</div><div class="meta">Rekor ${S.rekor.kereta||0}/8</div></div></button>`);
+};
 S?beranda():masuk();
 </script>
 </body>
